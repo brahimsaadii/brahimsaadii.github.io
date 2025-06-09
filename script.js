@@ -9,10 +9,313 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Terminal elements not found in DOM');
         return;
     }
-    
-    // Initialize terminal functionality
+      // Initialize terminal functionality
     initializeTerminal();
+    
+    // Load dynamic content
+    loadHeroSection();
+    loadAboutSection();
+    loadContactSection();
+    loadProjects();
+    loadExperience();
+    loadEducation();
 });
+
+// Function to dynamically load projects from portfolioData
+function loadProjects() {
+    const projectsGrid = document.querySelector('.projects-grid');
+    if (!projectsGrid || !portfolioData || !portfolioData.projects) {
+        console.log('Projects grid or portfolio data not found');
+        return;
+    }
+    
+    // Clear existing projects
+    projectsGrid.innerHTML = '';
+      // Generate project cards from portfolioData
+    portfolioData.projects.forEach(project => {
+        const projectCard = document.createElement('div');
+        projectCard.className = 'project-card';
+        
+        // Use icon from data, fallback to code icon if not specified
+        const icon = project.icon || 'fas fa-code';
+        
+        // Generate technology tags
+        const techTags = project.technologies.map(tech => 
+            `<span class="tag">${tech}</span>`
+        ).join('');
+        
+        // Generate project links
+        const githubLink = project.githubUrl && project.githubUrl !== '#' ? 
+            `<a href="${project.githubUrl}" class="project-link" target="_blank">
+                <i class="fab fa-github"></i>
+            </a>` : '';
+            
+        const liveLink = project.liveUrl && project.liveUrl !== '#' ? 
+            `<a href="${project.liveUrl}" class="project-link" target="_blank">
+                <i class="fas fa-external-link-alt"></i>
+            </a>` : '';
+          // Generate publication badge if exists
+        const publicationBadge = project.publication ? 
+            `<div class="project-publication">
+                <i class="fas fa-award"></i>
+                <span>${portfolioData.personal.publicationPrefix} ${project.publication.replace('CIKM \'24: 33rd ACM International Conference on Information and Knowledge Management', 'CIKM \'24')}</span>
+            </div>` : '';
+        
+        projectCard.innerHTML = `
+            <div class="project-image">
+                <i class="${icon}"></i>
+            </div>
+            <div class="project-content">
+                <h3>${project.title}</h3>
+                <p>${project.description}</p>
+                <div class="project-tech">
+                    ${techTags}
+                </div>
+                <div class="project-links">
+                    ${githubLink}
+                    ${liveLink}
+                </div>
+                ${publicationBadge}
+            </div>
+        `;
+        
+        projectsGrid.appendChild(projectCard);
+    });
+    
+    console.log(`✅ Loaded ${portfolioData.projects.length} projects dynamically`);
+}
+
+// Function to dynamically load experience from portfolioData
+function loadExperience() {
+    const timeline = document.querySelector('.timeline');
+    if (!timeline || !portfolioData || !portfolioData.experience) {
+        console.log('Timeline or portfolio experience data not found');
+        return;
+    }
+    
+    // Clear existing experience
+    timeline.innerHTML = '';
+    
+    // Sort experience by start year (most recent first)
+    const sortedExperience = [...portfolioData.experience].sort((a, b) => {
+        // Extract start year from period (handles formats like "Feb 2024 - Aug 2024", "Jan 2025 - Present")
+        const getStartYear = (period) => {
+            if (period.includes('Present')) {
+                // For "Present", extract the start year from the beginning
+                const match = period.match(/(\d{4})/);
+                return match ? parseInt(match[1]) : 0;
+            }
+            // Extract the first year mentioned in the period
+            const match = period.match(/(\d{4})/);
+            return match ? parseInt(match[1]) : 0;
+        };
+        
+        return getStartYear(b.period) - getStartYear(a.period);
+    });
+    
+    // Generate timeline items from sorted portfolioData
+    sortedExperience.forEach(exp => {
+        const timelineItem = document.createElement('div');
+        timelineItem.className = 'timeline-item';
+        
+        // Generate description list
+        const descriptionList = Array.isArray(exp.description) 
+            ? exp.description.map(desc => `<li>${desc}</li>`).join('')
+            : `<li>${exp.description}</li>`;
+        
+        // Generate technology tags
+        const techTags = exp.technologies.map(tech => 
+            `<span class="tag">${tech}</span>`
+        ).join('');
+        
+        timelineItem.innerHTML = `
+            <div class="timeline-date">${exp.period}</div>
+            <div class="timeline-content">
+                <h3>${exp.title}</h3>
+                <p class="company">${exp.company}</p>
+                <div class="description">
+                    <ul>
+                        ${descriptionList}
+                    </ul>
+                </div>
+                <div class="tech-tags">
+                    ${techTags}
+                </div>
+            </div>
+        `;
+        
+        timeline.appendChild(timelineItem);
+    });
+      console.log(`✅ Loaded ${sortedExperience.length} experience items dynamically (sorted chronologically)`);
+}
+
+// Function to dynamically load education from portfolioData
+function loadEducation() {
+    const educationGrid = document.querySelector('.education-grid');
+    if (!educationGrid || !portfolioData || !portfolioData.education) {
+        console.log('Education grid or portfolio education data not found');
+        return;
+    }
+    
+    // Clear existing education
+    educationGrid.innerHTML = '';
+    
+    // Sort education by start year (most recent first)
+    const sortedEducation = [...portfolioData.education].sort((a, b) => {
+        // Extract start year from period (handles formats like "2024 - Present", "2021 - 2024", "2019")
+        const getStartYear = (period) => {
+            if (period.includes('Present')) {
+                // For "Present", extract the start year from the beginning
+                const match = period.match(/(\d{4})/);
+                return match ? parseInt(match[1]) : 0;
+            }
+            // Extract the first year mentioned in the period
+            const match = period.match(/(\d{4})/);
+            return match ? parseInt(match[1]) : 0;
+        };
+        
+        return getStartYear(b.period) - getStartYear(a.period);
+    });
+      // Generate education cards from sorted portfolioData
+    sortedEducation.forEach(edu => {
+        const educationCard = document.createElement('div');
+        educationCard.className = 'education-card';
+        
+        // Use icon from data, fallback to graduation cap if not specified
+        const icon = edu.icon || 'fas fa-graduation-cap';
+        
+        educationCard.innerHTML = `
+            <div class="education-icon">
+                <i class="${icon}"></i>
+            </div>
+            <div class="education-content">
+                <h3>${edu.degree}</h3>
+                <p class="institution">${edu.institution}</p>
+                <p class="year">${edu.period}</p>
+                <p class="description">
+                    ${edu.description}
+                </p>
+            </div>
+        `;
+        
+        educationGrid.appendChild(educationCard);
+    });
+      console.log(`✅ Loaded ${sortedEducation.length} education items dynamically (sorted chronologically)`);
+}
+
+// Function to dynamically load hero section from portfolioData
+function loadHeroSection() {
+    if (!portfolioData || !portfolioData.personal) {
+        console.log('Portfolio personal data not found');
+        return;
+    }
+    
+    const personal = portfolioData.personal;
+    
+    // Update title
+    document.title = `${personal.name} - ${personal.title}`;
+    
+    // Update nav brand
+    const navName = document.querySelector('.nav-brand .name');
+    if (navName) navName.textContent = personal.name;
+    
+    // Update hero content
+    const heroTitle = document.querySelector('.hero-title .highlight');
+    if (heroTitle) heroTitle.textContent = personal.name;
+    
+    const heroSubtitle = document.querySelector('.hero-subtitle');
+    if (heroSubtitle) heroSubtitle.textContent = personal.title;
+    
+    const heroDescription = document.querySelector('.hero-description');
+    if (heroDescription) heroDescription.textContent = personal.bio;
+    
+    // Update profile card
+    const profileName = document.querySelector('.profile-card h3');
+    if (profileName) profileName.textContent = personal.name;
+    
+    const profileTitle = document.querySelector('.profile-card p');
+    if (profileTitle) profileTitle.textContent = personal.title;
+    
+    const profileStatus = document.querySelector('.profile-status');
+    if (profileStatus) {
+        profileStatus.innerHTML = `
+            <span class="status-dot"></span>
+            ${personal.availability}
+        `;
+    }
+    
+    console.log('✅ Loaded hero section dynamically');
+}
+
+// Function to dynamically load about section from portfolioData
+function loadAboutSection() {
+    if (!portfolioData || !portfolioData.personal) {
+        console.log('Portfolio personal data not found');
+        return;
+    }
+    
+    const personal = portfolioData.personal;
+    
+    // Update about text
+    const aboutTextDiv = document.querySelector('.about-text');
+    if (aboutTextDiv && personal.aboutText) {
+        aboutTextDiv.innerHTML = personal.aboutText.map(text => `<p>${text}</p>`).join('');
+    }
+    
+    // Update stats
+    if (personal.stats) {
+        const statElements = document.querySelectorAll('.about-stats .stat');
+        const statMapping = [
+            { key: 'experience', label: 'Years Experience' },
+            { key: 'projects', label: 'Projects Completed' },
+            { key: 'publications', label: 'Published Papers' }
+        ];
+        
+        statElements.forEach((statElement, index) => {
+            if (statMapping[index] && personal.stats[statMapping[index].key]) {
+                const h3 = statElement.querySelector('h3');
+                const p = statElement.querySelector('p');
+                if (h3) h3.textContent = personal.stats[statMapping[index].key];
+                if (p) p.textContent = statMapping[index].label;
+            }
+        });
+    }
+    
+    console.log('✅ Loaded about section dynamically');
+}
+
+// Function to dynamically load contact section from portfolioData
+function loadContactSection() {
+    if (!portfolioData || !portfolioData.personal) {
+        console.log('Portfolio personal data not found');
+        return;
+    }
+    
+    const personal = portfolioData.personal;
+    
+    // Update contact items
+    const contactItems = document.querySelectorAll('.contact-item');
+    const contactMapping = [
+        { key: 'email', icon: 'fas fa-envelope', label: 'Email' },
+        { key: 'phone', icon: 'fas fa-phone', label: 'Phone' },
+        { key: 'location', icon: 'fas fa-map-marker-alt', label: 'Location' }
+    ];
+    
+    contactItems.forEach((item, index) => {
+        if (contactMapping[index] && personal[contactMapping[index].key]) {
+            const mapping = contactMapping[index];
+            item.innerHTML = `
+                <i class="${mapping.icon}"></i>
+                <div>
+                    <h4>${mapping.label}</h4>
+                    <p>${personal[mapping.key]}</p>
+                </div>
+            `;
+        }
+    });
+    
+    console.log('✅ Loaded contact section dynamically');
+}
 
 function initializeTerminal() {
     // Set up event listeners
@@ -160,171 +463,7 @@ const terminalState = {
     shortcuts: true
 };
 
-// Portfolio data structure for easy updates
-const portfolioData = {
-    personal: {
-        name: "Brahim SAADI",
-        title: "MVA Student & AI Research Engineer",
-        email: "brahim.saadi342@gmail.com",
-        phone: "+33 (0) 745 439 657",
-        location: "Paris, France",
-        bio: "Passionate AI researcher and data scientist with expertise in machine learning, deep learning, NLP, and computer vision. Currently pursuing M2 MVA at ENS Paris-Saclay with hands-on experience in building AI pipelines and research projects."
-    },
-    
-    skills: {
-        programming: [
-            { name: "Python", level: 95 },
-            { name: "C/C++", level: 80 },
-            { name: "SQL", level: 85 }
-        ],
-        "ai-ml": [
-            { name: "Machine Learning Algorithms", level: 90 },
-            { name: "Deep Learning", level: 85 },
-            { name: "Natural Language Processing", level: 80 },
-            { name: "Computer Vision", level: 75 },
-            { name: "LLMs", level: 80 },
-            { name: "Data Analysis", level: 85 }
-        ],
-        frameworks: [
-            { name: "PyTorch", level: 85 },
-            { name: "TensorFlow", level: 80 },
-            { name: "Keras", level: 80 },
-            { name: "Scikit-Learn", level: 90 },
-            { name: "Pandas", level: 90 },
-            { name: "Seaborn", level: 85 },
-            { name: "NLTK", level: 80 },
-            { name: "OpenCV", level: 75 }
-        ],
-        tools: [
-            { name: "Git/GitHub", level: 85 },
-            { name: "Jupyter", level: 95 },
-            { name: "VS Code", level: 90 },
-            { name: "Power BI", level: 70 }
-        ],
-        languages: [
-            { name: "Arabic", level: 100 },
-            { name: "English", level: 90 },
-            { name: "French", level: 85 }
-        ]
-    },
-    
-    projects: [
-        {
-            title: "FactCheckBureau Platform",
-            description: "Interactive platform for designing and evaluating fact-checking analysis pipelines using BM25 retrieval and SBERT re-ranking with LLM fine-tuning.",
-            technologies: ["Python", "PyTorch", "SBERT", "BM25", "LLMs", "NLP"],
-            githubUrl: "#",
-            liveUrl: "#",
-            featured: true,
-            publication: "CIKM '24: 33rd ACM International Conference on Information and Knowledge Management"
-        },
-        {
-            title: "5G Network Self-Configuration",
-            description: "Deep Q-Learning solution for self-configuration of 5G NSA sites with PCI configuration tool, reducing manual configuration time significantly.",
-            technologies: ["Python", "Deep Q-Learning", "Reinforcement Learning", "5G Networks"],
-            githubUrl: "#",
-            liveUrl: "#",
-            featured: true
-        },
-        {
-            title: "IoT Device Classification System",
-            description: "Machine learning pipeline for IoT device classification using network traffic analysis with Wireshark data capture and multiple ML models.",
-            technologies: ["Python", "Scikit-Learn", "Wireshark", "Random Forest", "SVM", "KNN"],
-            githubUrl: "#",
-            liveUrl: "#",
-            featured: true
-        },
-        {
-            title: "Personal Portfolio Website",
-            description: "Modern, responsive portfolio website with terminal functionality and interactive features.",
-            technologies: ["HTML", "CSS", "JavaScript"],
-            githubUrl: "#",
-            liveUrl: "#",
-            featured: false
-        }
-    ],
-    
-    experience: [
-        {
-            title: "Research Intern - Building AI Pipelines for Fact-Check Analysis",
-            company: "INRIA - Laboratoire d'informatique de l'X (LIX)",
-            period: "Feb 2024 - Aug 2024",
-            description: [
-                "Collected and organized datasets of claims and fact-checking articles",
-                "Developed and implemented a retrieval solution using BM25, followed by re-ranking with the SBERT model (LLM)",
-                "Fine-tuned LLMs on collected data for improved accuracy",
-                "Deployed an interactive platform, FactCheckBureau, enabling researchers to design and evaluate fact-checking analysis pipelines in production"
-            ],
-            technologies: ["Python", "LLMs", "SBERT", "BM25", "PyTorch", "NLP", "Data Collection"]
-        },
-        {
-            title: "Research Intern - 5G Network Self-Configuration",
-            company: "ERICSSON",
-            period: "Oct 2023 - Jan 2024",
-            description: [
-                "Developed a solution for the self-configuration of 5G NSA sites using Deep Q-Learning",
-                "Deployed the solution with the PCI configuration tool, significantly reducing manual configuration time"
-            ],
-            technologies: ["Deep Q-Learning", "Python", "5G Networks", "Reinforcement Learning"]
-        },
-        {
-            title: "Data Science Intern - IoT Device Classification",
-            company: "ERICSSON",
-            period: "Feb 2023 - Jun 2023",
-            description: [
-                "Captured IoT device network traffic using Wireshark and performed data analysis to create a dataset",
-                "Prepared the dataset through cleaning, normalization, and encoding for machine learning model training",
-                "Trained and evaluated machine learning models (Random Forest, SVM, KNN) to classify IoT devices"
-            ],
-            technologies: ["Python", "Wireshark", "Scikit-Learn", "Data Analysis", "Random Forest", "SVM", "KNN"]
-        }
-    ],
-    
-    education: [
-        {
-            degree: "M2 MVA (Mathématique Vision Apprentissage)",
-            institution: "ENS Paris-Saclay",
-            period: "2024 - Present",
-            description: "Key Courses: Convex Optimization, Object Recognition and Computer Vision, Deep Learning & Signal Processing, Time Series Analysis, Altegrad (NLP & graphs), Reinforcement Learning."
-        },
-        {
-            degree: "Data Science & Intelligence Artificielle",
-            institution: "École nationale polytechnique",
-            period: "2021 - 2024",
-            description: "Developed expertise in machine learning, data analysis, databases, computer vision, natural language processing, industrial engineering, communication, entrepreneurship, and project management."
-        },
-        {
-            degree: "Classes Préparatoires",
-            institution: "École nationale polytechnique",
-            period: "2019 - 2021",
-            description: "Successfully passed (Concours d'Accès au Grandes Écoles): ranking top 7%."
-        },
-        {
-            degree: "Baccalaureate - Mathematics and Electrical Engineering",
-            institution: "Lycée Khatab Ibrahim | Skikda, Algérie",
-            period: "2019",
-            description: "Mathematics and Electrical Engineering (17.68/20)"
-        }
-    ],
-    
-    certifications: [
-        "Deep Learning with TensorFlow 2 (365 Data Science)",
-        "Machine Learning in Python (365 Data Science)",
-        "Fundamentals of Deep Learning (NVIDIA)",
-        "Tools for Data Science (IBM | Coursera)",
-        "Introduction to Data and Data Science (365 Data Science)",
-        "Git and GitHub (365 Data Science)"
-    ],
-    
-    publications: [
-        {
-            title: "FactCheckBureau: Build Your Own Fact-Check Analysis Pipeline",
-            conference: "CIKM '24: 33rd ACM International Conference on Information and Knowledge Management",
-            date: "Oct 2024",
-            contribution: "Collected claim data and implemented a retrieval approach based on BM25, followed by re-ranking using SBERT (LLM). Developed and deployed the FactCheckBureau platform for pipeline matching and analysis in fact-checking."
-        }
-    ]
-};
+// Portfolio data is now loaded from external file
 
 // Terminal commands with enhanced functionality
 const commands = {    help: {
@@ -342,14 +481,9 @@ const commands = {    help: {
             output += `  <span class="command-success">certifications</span> - Professional certifications\n`;
             output += `  <span class="command-success">publications</span>   - Research publications\n`;
             output += `  <span class="command-success">contact</span>        - Contact information\n\n`;
-            
-            // Essential Terminal Commands
+              // Essential Terminal Commands
             output += `<span style="color: #7ce38b;">🖥️ Terminal:</span>\n\n`;
-            output += `  <span class="command-success">ls</span>             - List directory contents\n`;
-            output += `  <span class="command-success">cat [file]</span>     - Display file contents\n`;
             output += `  <span class="command-success">clear</span>          - Clear terminal screen\n`;
-            output += `  <span class="command-success">whoami</span>         - Current user info\n`;
-            output += `  <span class="command-success">pwd</span>            - Current directory\n`;
             output += `  <span class="command-success">date</span>           - Current date and time\n\n`;
             
             // Useful Features
@@ -503,75 +637,11 @@ Feel free to reach out for collaboration opportunities!`;
             return output;
         }
     },
-    
-    clear: {
+      clear: {
         description: "Clear terminal",
         execute: () => {
             terminalOutput.innerHTML = '';
             return '';
-        }
-    },
-    
-    ls: {
-        description: "List directory contents",
-        execute: () => {
-            return `<span class="command-success">Directory Contents:</span>
-
-drwxr-xr-x  about.txt
-drwxr-xr-x  skills.json
-drwxr-xr-x  experience.md
-drwxr-xr-x  education.md
-drwxr-xr-x  projects/
-drwxr-xr-x  certifications.txt
-drwxr-xr-x  publications.md
-drwxr-xr-x  contact.info
--rw-r--r--  resume.pdf
--rw-r--r--  portfolio.html`;
-        }
-    },
-    
-    cat: {
-        description: "Display file contents",
-        execute: (args) => {
-            const file = args[0];
-            if (!file) {
-                return `<span class="command-error">Usage: cat [filename]</span>`;
-            }
-            
-            switch (file) {
-                case 'about.txt':
-                    return commands.about.execute();
-                case 'skills.json':
-                    return commands.skills.execute();
-                case 'experience.md':
-                    return commands.experience.execute();
-                case 'education.md':
-                    return commands.education.execute();
-                case 'certifications.txt':
-                    return commands.certifications.execute();
-                case 'publications.md':
-                    return commands.publications.execute();
-                case 'contact.info':
-                    return commands.contact.execute();
-                case 'resume.pdf':
-                    return `<span class="command-error">Cannot display binary file. Use 'about' command instead.</span>`;
-                default:
-                    return `<span class="command-error">File not found: ${file}</span>`;
-            }
-        }
-    },
-    
-    whoami: {
-        description: "Show current user",
-        execute: () => {
-            return `brahim`;
-        }
-    },
-    
-    pwd: {
-        description: "Show current directory",
-        execute: () => {
-            return `/home/brahim/portfolio`;
         }
     },
     

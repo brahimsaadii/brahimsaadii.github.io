@@ -17,14 +17,14 @@ A modern, responsive portfolio website with terminal functionality, built with H
 ## Getting Started
 
 1. **Setup**: Simply open `index.html` in your web browser
-2. **Customize**: Edit the `portfolioData` object in `script.js` to add your information
+2. **Customize**: Edit the `portfolioData` object in `portfolioData.js` to add your information
 3. **Deploy**: Upload files to any web hosting service
 
 ## Customization Guide
 
 ### 1. Personal Information
 
-Edit the `portfolioData` object in `script.js`:
+Edit the `portfolioData` object in `portfolioData.js`:
 
 ```javascript
 const portfolioData = {
