@@ -8,9 +8,11 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!terminal || !terminalOutput || !terminalInput) {
         console.error('Terminal elements not found in DOM');
         return;
-    }
-      // Initialize terminal functionality
+    }      // Initialize terminal functionality
     initializeTerminal();
+    
+    // Initialize contact form
+    initializeContactForm();
     
     // Load dynamic content
     loadHeroSection();
@@ -308,23 +310,30 @@ function loadContactSection() {
     }
     
     const personal = portfolioData.personal;
-    
-    // Update contact items
+      // Update contact items
     const contactItems = document.querySelectorAll('.contact-item');
     const contactMapping = [
         { key: 'email', icon: 'fas fa-envelope', label: 'Email' },
         { key: 'phone', icon: 'fas fa-phone', label: 'Phone' },
+        { key: 'linkedin', icon: 'fab fa-linkedin', label: 'LinkedIn', isLink: true },
         { key: 'location', icon: 'fas fa-map-marker-alt', label: 'Location' }
     ];
     
     contactItems.forEach((item, index) => {
         if (contactMapping[index] && personal[contactMapping[index].key]) {
             const mapping = contactMapping[index];
+            const value = personal[mapping.key];
+            
+            // Handle LinkedIn as clickable link
+            const displayValue = mapping.isLink ? 
+                `<a href="${value}" target="_blank" style="color: var(--primary-color); text-decoration: none;">View Profile</a>` : 
+                value;
+            
             item.innerHTML = `
                 <i class="${mapping.icon}"></i>
                 <div>
                     <h4>${mapping.label}</h4>
-                    <p>${personal[mapping.key]}</p>
+                    <p>${displayValue}</p>
                 </div>
             `;
         }
@@ -802,3 +811,50 @@ function autoComplete() {
         addToTerminal('');
     }
 }
+
+// Contact form handling
+function initializeContactForm() {
+    const contactForm = document.getElementById('contactForm');
+    const formStatus = document.getElementById('form-status');
+    
+    if (!contactForm) return;
+    
+    contactForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const submitButton = contactForm.querySelector('button[type="submit"]');
+        const originalText = submitButton.textContent;
+        
+        // Show loading state
+        submitButton.textContent = 'Sending...';
+        submitButton.disabled = true;
+        formStatus.innerHTML = '';
+        
+        try {
+            const formData = new FormData(contactForm);
+            const response = await fetch(contactForm.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+            
+            if (response.ok) {
+                formStatus.innerHTML = '<div class="alert alert-success"><i class="fas fa-check-circle"></i> Thank you! Your message has been sent successfully.</div>';
+                contactForm.reset();
+            } else {
+                throw new Error('Form submission failed');
+            }
+        } catch (error) {
+            formStatus.innerHTML = '<div class="alert alert-error"><i class="fas fa-exclamation-circle"></i> Sorry, there was an error sending your message. Please try again.</div>';
+        }
+        
+        // Reset button
+        submitButton.textContent = originalText;
+        submitButton.disabled = false;
+    });
+}
+
+// Initialize contact form handling on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', initializeContactForm);

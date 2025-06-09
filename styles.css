@@ -823,6 +823,32 @@ body {
     color: var(--text-secondary);
 }
 
+/* Contact Form Status Messages */
+.form-status {
+    margin-top: 1rem;
+}
+
+.alert {
+    padding: 12px 16px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.alert-success {
+    background: rgba(0, 212, 170, 0.1);
+    border: 1px solid rgba(0, 212, 170, 0.3);
+    color: var(--primary-color);
+}
+
+.alert-error {
+    background: rgba(255, 107, 107, 0.1);
+    border: 1px solid rgba(255, 107, 107, 0.3);
+    color: #ff6b6b;
+}
+
 /* Terminal */
 .terminal {
     position: fixed;
