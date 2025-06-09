@@ -953,6 +953,8 @@ body {
     z-index: 1;
     /* Enable smooth scrolling */
     scroll-behavior: smooth;
+    /* Enable proper line break rendering */
+    white-space: pre-line;
 }
 
 #terminal-output::-webkit-scrollbar {

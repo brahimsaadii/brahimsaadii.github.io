@@ -327,14 +327,13 @@ const portfolioData = {
 };
 
 // Terminal commands with enhanced functionality
-const commands = {
-    help: {
+const commands = {    help: {
         description: "Show available commands",
         execute: () => {
             let output = `<span class="command-success">Portfolio Terminal - Available Commands</span>\n\n`;
             
             // Core Portfolio Commands
-            output += `<span style="color: #7ce38b;">📋 Portfolio:</span>\n`;
+            output += `<span style="color: #7ce38b;">📋 Portfolio:</span>\n\n`;
             output += `  <span class="command-success">about</span>          - About me and my background\n`;
             output += `  <span class="command-success">skills</span>         - Technical skills and expertise\n`;
             output += `  <span class="command-success">experience</span>     - Work experience and roles\n`;
@@ -345,7 +344,7 @@ const commands = {
             output += `  <span class="command-success">contact</span>        - Contact information\n\n`;
             
             // Essential Terminal Commands
-            output += `<span style="color: #7ce38b;">🖥️ Terminal:</span>\n`;
+            output += `<span style="color: #7ce38b;">🖥️ Terminal:</span>\n\n`;
             output += `  <span class="command-success">ls</span>             - List directory contents\n`;
             output += `  <span class="command-success">cat [file]</span>     - Display file contents\n`;
             output += `  <span class="command-success">clear</span>          - Clear terminal screen\n`;
@@ -354,13 +353,13 @@ const commands = {
             output += `  <span class="command-success">date</span>           - Current date and time\n\n`;
             
             // Useful Features
-            output += `<span style="color: #7ce38b;">⚙️ Features:</span>\n`;
+            output += `<span style="color: #7ce38b;">⚙️ Features:</span>\n\n`;
             output += `  <span class="command-success">theme [color]</span>  - Change terminal theme\n`;
             output += `  <span class="command-success">history</span>        - Show command history\n`;
             output += `  <span class="command-success">exit</span>           - Close terminal\n\n`;
             
             // Tips
-            output += `<span style="color: #8b949e;">💡 Tips:</span>\n`;
+            output += `<span style="color: #8b949e;">💡 Tips:</span>\n\n`;
             output += `• Use <span style="color: #7ce38b;">↑ ↓</span> arrows for command history\n`;
             output += `• Press <span style="color: #7ce38b;">Tab</span> for auto-completion\n`;
             output += `• Try: <span class="command-success">about</span> → <span class="command-success">skills</span> → <span class="command-success">projects</span> → <span class="command-success">contact</span>`;
