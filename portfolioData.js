@@ -5,6 +5,7 @@ const portfolioData = {    personal: {
         email: "brahim.saadi342@gmail.com",
         phone: "+33 (0) 745 439 657",
         location: "Paris, France",
+        profileImage: "profile.jpg", // Add your profile picture filename here
         bio: "Passionate AI researcher and data scientist with expertise in machine learning, deep learning, NLP, and computer vision. Currently pursuing M2 MVA at ENS Paris-Saclay with hands-on experience in building AI pipelines and research projects.",
         aboutText: [
             "I'm a dedicated AI researcher and data scientist currently pursuing M2 MVA (Mathématique Vision Apprentissage) at ENS Paris-Saclay. My journey in AI spans machine learning, deep learning, computer vision, and natural language processing.",
@@ -14,15 +15,17 @@ const portfolioData = {    personal: {
             experience: "3+",
             projects: "15+",
             publications: "1"
-        },        availability: "Available for opportunities",
+        },
+        availability: "Available for opportunities",
         publicationPrefix: "Published at"
     },
     
-    // Terminal configuration
+    // Terminal configuration for portfolio terminal
     terminal: {
         user: "brahim",
         hostname: "portfolio",
-        currentPath: "/home/brahim/portfolio"
+        currentPath: "/home/brahim/portfolio",
+        theme: "default"
     },
     
     skills: {

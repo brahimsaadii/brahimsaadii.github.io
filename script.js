@@ -214,10 +214,19 @@ function loadHeroSection() {
     
     // Update title
     document.title = `${personal.name} - ${personal.title}`;
-    
-    // Update nav brand
+      // Update nav brand
     const navName = document.querySelector('.nav-brand .name');
     if (navName) navName.textContent = personal.name;
+    
+    // Update logo with profile image or keep initials
+    const logo = document.querySelector('.nav-brand .logo');
+    if (logo && personal.profileImage) {
+        logo.innerHTML = `<img src="${personal.profileImage}" alt="${personal.name}" class="nav-logo-img">`;
+    } else if (logo) {
+        // Keep the initials as fallback
+        const initials = personal.name.split(' ').map(n => n[0]).join('');
+        logo.textContent = initials;
+    }
     
     // Update hero content
     const heroTitle = document.querySelector('.hero-title .highlight');
@@ -228,8 +237,7 @@ function loadHeroSection() {
     
     const heroDescription = document.querySelector('.hero-description');
     if (heroDescription) heroDescription.textContent = personal.bio;
-    
-    // Update profile card
+      // Update profile card
     const profileName = document.querySelector('.profile-card h3');
     if (profileName) profileName.textContent = personal.name;
     
@@ -242,6 +250,15 @@ function loadHeroSection() {
             <span class="status-dot"></span>
             ${personal.availability}
         `;
+    }
+    
+    // Update profile avatar with image or fallback to icon
+    const profileAvatar = document.querySelector('.profile-avatar');
+    if (profileAvatar && personal.profileImage) {
+        profileAvatar.innerHTML = `<img src="${personal.profileImage}" alt="${personal.name}" class="profile-img">`;
+    } else if (profileAvatar) {
+        // Fallback to icon if no image is provided
+        profileAvatar.innerHTML = `<i class="fas fa-user"></i>`;
     }
     
     console.log('✅ Loaded hero section dynamically');
@@ -450,17 +467,7 @@ window.toggleTerminal = function() {
         terminalInput.focus();
         if (terminalOutput.innerHTML === '') {
             showWelcomeMessage();
-        }
-    }
-};
-
-// Terminal state
-const terminalState = {
-    user: 'brahim',
-    hostname: 'portfolio',
-    currentPath: '/home/brahim/portfolio',
-    theme: 'default',
-    shortcuts: true
+        }    }
 };
 
 // Portfolio data is now loaded from external file
@@ -708,8 +715,7 @@ const commandAliases = {
     's': 'skills',
     'e': 'experience',
     'a': 'about',
-    'q': 'exit',
-    'll': 'ls'
+    'q': 'exit'
 };
 
 // Simple execute command function
@@ -730,9 +736,9 @@ function executeCommand(input) {
     // Check for aliases first
     const aliasedCommand = commandAliases[command];
     const finalCommand = aliasedCommand || command;
-    
-    // Add command to terminal
-    addToTerminal(`<span class="terminal-prompt">${terminalState.user}@${terminalState.hostname}:${terminalState.currentPath}$</span> <span style="color: #e6edf3;">${input}</span>`);
+      // Add command to terminal
+    const terminalConfig = portfolioData?.terminal || { user: 'user', hostname: 'terminal', currentPath: '~' };
+    addToTerminal(`<span class="terminal-prompt">${terminalConfig.user}@${terminalConfig.hostname}:${terminalConfig.currentPath}$</span> <span style="color: #e6edf3;">${input}</span>`);
     
     if (commands[finalCommand]) {
         const output = commands[finalCommand].execute(args);
@@ -753,10 +759,11 @@ function executeCommand(input) {
 
 // Simple terminal functions
 function showWelcomeMessage() {
+    const name = portfolioData?.personal?.name || 'Developer';
     const welcomeText = `
 <span style="color: #00d4aa; font-weight: bold;">╔══════════════════════════════════════════════════════════════╗</span>
 <span style="color: #00d4aa; font-weight: bold;">║</span>                                                              <span style="color: #00d4aa; font-weight: bold;">║</span>
-<span style="color: #00d4aa; font-weight: bold;">║</span>    Welcome to <span class="command-success">Brahim SAADI's</span> Portfolio Terminal! 🚀        <span style="color: #00d4aa; font-weight: bold;">║</span>
+<span style="color: #00d4aa; font-weight: bold;">║</span>    Welcome to <span class="command-success">${name}'s</span> Portfolio Terminal! 🚀        <span style="color: #00d4aa; font-weight: bold;">║</span>
 <span style="color: #00d4aa; font-weight: bold;">║</span>                                                              <span style="color: #00d4aa; font-weight: bold;">║</span>
 <span style="color: #00d4aa; font-weight: bold;">║</span>    <span style="color: #8b949e;">Type</span> '<span class="command-success">help</span>' <span style="color: #8b949e;">to see available commands</span>                  <span style="color: #00d4aa; font-weight: bold;">║</span>
 <span style="color: #00d4aa; font-weight: bold;">║</span>    <span style="color: #8b949e;">Use</span> <span style="color: #7ce38b;">↑ ↓</span> <span style="color: #8b949e;">arrows for command history</span>                    <span style="color: #00d4aa; font-weight: bold;">║</span>
