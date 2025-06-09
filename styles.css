@@ -301,10 +301,24 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    
+    /* Specific fixes for Brave browser */
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    line-height: 1.4;
+    vertical-align: middle;
+    
+    /* Force hardware acceleration for smoother animations in Brave */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: transform;
 }
 
 .download-resume-btn i {
     margin-right: 8px;
+    /* Ensure icon alignment in Brave */
+    vertical-align: middle;
+    line-height: inherit;
 }
 
 /* Contact Resume Download */

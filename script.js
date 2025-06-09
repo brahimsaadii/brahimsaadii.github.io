@@ -262,7 +262,7 @@ function loadHeroSection() {
     }    // Update download resume button
     const downloadBtn = document.querySelector('.download-resume-btn');
     if (downloadBtn && personal.resumeFile) {
-        // Enhanced download method for GitHub Pages
+        // Enhanced download method for GitHub Pages and Brave browser
         downloadBtn.addEventListener('click', function(e) {
             e.preventDefault();
             
@@ -271,16 +271,24 @@ function loadHeroSection() {
                 `https://brahimsaadii.github.io/${personal.resumeFile}` : 
                 personal.resumeFile;
             
-            // Create temporary link for download
-            const link = document.createElement('a');
-            link.href = resumeUrl;
-            link.download = `${personal.name.replace(/\s+/g, '_')}_Resume.pdf`;
-            link.target = '_blank';
+            // Detect Brave browser
+            const isBrave = navigator.brave && navigator.brave.isBrave;
             
-            // Trigger download
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            if (isBrave) {
+                // Brave-specific download method
+                window.open(resumeUrl, '_blank');
+            } else {
+                // Standard download method for other browsers
+                const link = document.createElement('a');
+                link.href = resumeUrl;
+                link.download = `${personal.name.replace(/\s+/g, '_')}_Resume.pdf`;
+                link.target = '_blank';
+                
+                // Trigger download
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
         });
         
         // Fallback: set href for direct access
@@ -368,7 +376,7 @@ function loadContactSection() {
     });    // Update resume download button in contact section
     const resumeDownloadBtn = document.querySelector('.download-resume-contact');
     if (resumeDownloadBtn && personal.resumeFile) {
-        // Enhanced download method for GitHub Pages
+        // Enhanced download method for GitHub Pages and Brave browser
         resumeDownloadBtn.addEventListener('click', function(e) {
             e.preventDefault();
             
@@ -377,16 +385,24 @@ function loadContactSection() {
                 `https://brahimsaadii.github.io/${personal.resumeFile}` : 
                 personal.resumeFile;
             
-            // Create temporary link for download
-            const link = document.createElement('a');
-            link.href = resumeUrl;
-            link.download = `${personal.name.replace(/\s+/g, '_')}_Resume.pdf`;
-            link.target = '_blank';
+            // Detect Brave browser
+            const isBrave = navigator.brave && navigator.brave.isBrave;
             
-            // Trigger download
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            if (isBrave) {
+                // Brave-specific download method
+                window.open(resumeUrl, '_blank');
+            } else {
+                // Standard download method for other browsers
+                const link = document.createElement('a');
+                link.href = resumeUrl;
+                link.download = `${personal.name.replace(/\s+/g, '_')}_Resume.pdf`;
+                link.target = '_blank';
+                
+                // Trigger download
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
         });
         
         // Fallback: set href for direct access
