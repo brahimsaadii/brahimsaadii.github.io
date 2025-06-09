@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brahim SAADI - Software Engineer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="nav-brand">
+                <span class="logo">BS</span>
+                <span class="name">Brahim SAADI</span>
+            </div>
+            <div class="nav-links">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#experience" class="nav-link">Experience</a>
+                <a href="#education" class="nav-link">Education</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <button class="terminal-toggle" onclick="toggleTerminal()">
+                    <i class="fas fa-terminal"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        Hi, I'm <span class="highlight">Brahim SAADI</span>
+                    </h1>                    <p class="hero-subtitle">MVA Student & AI Research Engineer</p>
+                    <p class="hero-description">
+                        Passionate AI researcher and data scientist with expertise in machine learning, 
+                        deep learning, NLP, and computer vision. Currently pursuing M2 MVA at ENS Paris-Saclay 
+                        with hands-on experience in building AI pipelines and research projects.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                        <a href="#projects" class="btn btn-secondary">View My Work</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="profile-card">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>                        <div class="profile-info">
+                            <h3>Brahim SAADI</h3>
+                            <p>MVA Student & AI Research Engineer</p>
+                            <div class="profile-status">
+                                <span class="status-dot"></span>
+                                Available for opportunities
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="section-header">
+                <h2 class="section-title">About Me</h2>
+                <p class="section-subtitle">Get to know me better</p>
+            </div>
+            <div class="about-content">                <div class="about-text">
+                    <p>
+                        I'm a dedicated AI researcher and data scientist currently pursuing M2 MVA 
+                        (Mathématique Vision Apprentissage) at ENS Paris-Saclay. My journey in AI 
+                        spans machine learning, deep learning, computer vision, and natural language processing.
+                    </p>
+                    <p>
+                        With hands-on experience at INRIA and ERICSSON, I've worked on cutting-edge projects 
+                        involving fact-checking AI pipelines, 5G network optimization, and IoT device 
+                        classification. I believe in pushing the boundaries of AI research while delivering 
+                        practical solutions that make a real impact.
+                    </p>
+                </div>                <div class="about-stats">
+                    <div class="stat">
+                        <h3>3+</h3>
+                        <p>Years Experience</p>
+                    </div>
+                    <div class="stat">
+                        <h3>15+</h3>
+                        <p>Projects Completed</p>
+                    </div>
+                    <div class="stat">
+                        <h3>1</h3>
+                        <p>Published Paper</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Experience</h2>
+                <p class="section-subtitle">My professional journey</p>
+            </div>            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Feb 2024 - Aug 2024</div>
+                    <div class="timeline-content">
+                        <h3>Research Intern - Building AI Pipelines for Fact-Check Analysis</h3>
+                        <p class="company">INRIA - Laboratoire d'informatique de l'X (LIX)</p>
+                        <div class="description">
+                            <ul>
+                                <li>Collected and organized datasets of claims and fact-checking articles</li>
+                                <li>Developed and implemented a retrieval solution using BM25, followed by re-ranking with the SBERT model (LLM)</li>
+                                <li>Fine-tuned LLMs on collected data for improved accuracy</li>
+                                <li>Deployed an interactive platform, FactCheckBureau, enabling researchers to design and evaluate fact-checking analysis pipelines in production</li>
+                            </ul>
+                        </div>
+                        <div class="tech-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">LLMs</span>
+                            <span class="tag">SBERT</span>
+                            <span class="tag">BM25</span>
+                            <span class="tag">PyTorch</span>
+                            <span class="tag">NLP</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Oct 2023 - Jan 2024</div>
+                    <div class="timeline-content">
+                        <h3>Research Intern - 5G Network Self-Configuration</h3>
+                        <p class="company">ERICSSON</p>
+                        <div class="description">
+                            <ul>
+                                <li>Developed a solution for the self-configuration of 5G NSA sites using Deep Q-Learning</li>
+                                <li>Deployed the solution with the PCI configuration tool, significantly reducing manual configuration time</li>
+                            </ul>
+                        </div>
+                        <div class="tech-tags">
+                            <span class="tag">Deep Q-Learning</span>
+                            <span class="tag">Python</span>
+                            <span class="tag">5G Networks</span>
+                            <span class="tag">Reinforcement Learning</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Feb 2023 - Jun 2023</div>
+                    <div class="timeline-content">
+                        <h3>Data Science Intern - IoT Device Classification</h3>
+                        <p class="company">ERICSSON</p>
+                        <div class="description">
+                            <ul>
+                                <li>Captured IoT device network traffic using Wireshark and performed data analysis to create a dataset</li>
+                                <li>Prepared the dataset through cleaning, normalization, and encoding for machine learning model training</li>
+                                <li>Trained and evaluated machine learning models (Random Forest, SVM, KNN) to classify IoT devices</li>
+                            </ul>
+                        </div>
+                        <div class="tech-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Wireshark</span>
+                            <span class="tag">Scikit-Learn</span>
+                            <span class="tag">Random Forest</span>
+                            <span class="tag">SVM</span>
+                            <span class="tag">KNN</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Education</h2>
+                <p class="section-subtitle">My academic background</p>
+            </div>            <div class="education-grid">
+                <div class="education-card">
+                    <div class="education-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="education-content">
+                        <h3>M2 MVA (Mathématique Vision Apprentissage)</h3>
+                        <p class="institution">ENS Paris-Saclay</p>
+                        <p class="year">2024 - Present</p>
+                        <p class="description">
+                            Key Courses: Convex Optimization, Object Recognition and Computer Vision, Deep Learning & Signal Processing, Time Series Analysis, Altegrad (NLP & graphs), Reinforcement Learning.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="education-card">
+                    <div class="education-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="education-content">
+                        <h3>Data Science & Intelligence Artificielle</h3>
+                        <p class="institution">École nationale polytechnique</p>
+                        <p class="year">2021 - 2024</p>
+                        <p class="description">
+                            Developed expertise in machine learning, data analysis, databases, computer vision, natural language processing, industrial engineering, communication, entrepreneurship, and project management.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="education-card">
+                    <div class="education-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="education-content">
+                        <h3>Classes Préparatoires</h3>
+                        <p class="institution">École nationale polytechnique</p>
+                        <p class="year">2019 - 2021</p>
+                        <p class="description">
+                            Successfully passed (Concours d'Accès au Grandes Écoles): ranking top 7%.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="education-card">
+                    <div class="education-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <div class="education-content">
+                        <h3>Baccalaureate - Mathematics and Electrical Engineering</h3>
+                        <p class="institution">Lycée Khatab Ibrahim | Skikda, Algérie</p>
+                        <p class="year">2019</p>
+                        <p class="description">
+                            Mathematics and Electrical Engineering (17.68/20)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Skills</h2>
+                <p class="section-subtitle">Technologies I work with</p>
+            </div>            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Programming</h3>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <span class="skill-name">Python</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">C/C++</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">SQL</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Machine Learning</h3>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <span class="skill-name">ML Algorithms</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Deep Learning</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">NLP</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Computer Vision</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Frameworks</h3>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <span class="skill-name">PyTorch</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">TensorFlow</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Scikit-Learn</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Tools</h3>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <span class="skill-name">Git/GitHub</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Jupyter</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">VS Code</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Projects</h2>
+                <p class="section-subtitle">Some of my recent work</p>
+            </div>            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>FactCheckBureau Platform</h3>
+                        <p>Interactive platform for designing and evaluating fact-checking analysis pipelines using BM25 retrieval and SBERT re-ranking with LLM fine-tuning.</p>
+                        <div class="project-tech">
+                            <span class="tag">Python</span>
+                            <span class="tag">PyTorch</span>
+                            <span class="tag">SBERT</span>
+                            <span class="tag">BM25</span>
+                            <span class="tag">LLMs</span>
+                            <span class="tag">NLP</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                        <div class="project-publication">
+                            <i class="fas fa-award"></i>
+                            <span>Published at CIKM '24</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>5G Network Self-Configuration</h3>
+                        <p>Deep Q-Learning solution for self-configuration of 5G NSA sites with PCI configuration tool, reducing manual configuration time significantly.</p>
+                        <div class="project-tech">
+                            <span class="tag">Python</span>
+                            <span class="tag">Deep Q-Learning</span>
+                            <span class="tag">Reinforcement Learning</span>
+                            <span class="tag">5G Networks</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-wifi"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>IoT Device Classification System</h3>
+                        <p>Machine learning pipeline for IoT device classification using network traffic analysis with Wireshark data capture and multiple ML models.</p>
+                        <div class="project-tech">
+                            <span class="tag">Python</span>
+                            <span class="tag">Scikit-Learn</span>
+                            <span class="tag">Wireshark</span>
+                            <span class="tag">Random Forest</span>
+                            <span class="tag">SVM</span>
+                            <span class="tag">KNN</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                  <div class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Personal Portfolio Website</h3>
+                        <p>Modern, responsive portfolio website with terminal functionality and interactive features.</p>
+                        <div class="project-tech">
+                            <span class="tag">HTML</span>
+                            <span class="tag">CSS</span>
+                            <span class="tag">JavaScript</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="section-subtitle">Let's work together</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>brahim.saadi342@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+33 (0) 745 439 657</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Location</h4>
+                            <p>Paris, France</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Terminal -->
+        <div id="terminal" class="terminal">
+            <div class="terminal-header">
+                <div class="terminal-buttons">
+                    <span class="terminal-button close" onclick="toggleTerminal()"></span>
+                    <span class="terminal-button minimize"></span>
+                    <span class="terminal-button maximize"></span>
+                </div>
+                <div class="terminal-title">brahim@portfolio:~$</div>
+            </div>
+            <div class="terminal-body">
+                <div id="terminal-output"></div>
+                <div class="terminal-input-line">
+                    <span class="terminal-prompt">brahim@portfolio:~$ </span>
+                    <input type="text" id="terminal-input" class="terminal-input" autofocus>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
