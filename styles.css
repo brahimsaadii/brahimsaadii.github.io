@@ -269,6 +269,9 @@ body {
     border: 2px solid var(--primary-color);
     position: relative;
     overflow: hidden;
+    -webkit-appearance: none; /* Fix for Brave/Chrome */
+    -moz-appearance: none;    /* Fix for Firefox */
+    appearance: none;         /* Standard property */
 }
 
 .btn-outline:hover {
@@ -291,6 +294,13 @@ body {
 
 .btn-outline:hover::before {
     left: 0;
+}
+
+.download-resume-btn {
+    /* Ensure consistent rendering across browsers */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
 .download-resume-btn i {

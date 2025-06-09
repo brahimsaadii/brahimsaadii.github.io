@@ -259,13 +259,36 @@ function loadHeroSection() {
     } else if (profileAvatar) {
         // Fallback to icon if no image is provided
         profileAvatar.innerHTML = `<i class="fas fa-user"></i>`;
-    }
-    
-    // Update download resume button
+    }    // Update download resume button
     const downloadBtn = document.querySelector('.download-resume-btn');
     if (downloadBtn && personal.resumeFile) {
-        downloadBtn.href = personal.resumeFile;
-        downloadBtn.download = `${personal.name.replace(/\s+/g, '_')}_Resume.pdf`;
+        // Enhanced download method for GitHub Pages
+        downloadBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const isGitHubPages = window.location.hostname.includes('github.io');
+            const resumeUrl = isGitHubPages ? 
+                `https://brahimsaadii.github.io/${personal.resumeFile}` : 
+                personal.resumeFile;
+            
+            // Create temporary link for download
+            const link = document.createElement('a');
+            link.href = resumeUrl;
+            link.download = `${personal.name.replace(/\s+/g, '_')}_Resume.pdf`;
+            link.target = '_blank';
+            
+            // Trigger download
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+        
+        // Fallback: set href for direct access
+        const isGitHubPages = window.location.hostname.includes('github.io');
+        const resumeUrl = isGitHubPages ? 
+            `https://brahimsaadii.github.io/${personal.resumeFile}` : 
+            personal.resumeFile;
+        downloadBtn.href = resumeUrl;
     }
     
     console.log('✅ Loaded hero section dynamically');
@@ -342,13 +365,36 @@ function loadContactSection() {
                 </div>
             `;
         }
-    });
-    
-    // Update resume download button in contact section
+    });    // Update resume download button in contact section
     const resumeDownloadBtn = document.querySelector('.download-resume-contact');
     if (resumeDownloadBtn && personal.resumeFile) {
-        resumeDownloadBtn.href = personal.resumeFile;
-        resumeDownloadBtn.download = `${personal.name.replace(/\s+/g, '_')}_Resume.pdf`;
+        // Enhanced download method for GitHub Pages
+        resumeDownloadBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const isGitHubPages = window.location.hostname.includes('github.io');
+            const resumeUrl = isGitHubPages ? 
+                `https://brahimsaadii.github.io/${personal.resumeFile}` : 
+                personal.resumeFile;
+            
+            // Create temporary link for download
+            const link = document.createElement('a');
+            link.href = resumeUrl;
+            link.download = `${personal.name.replace(/\s+/g, '_')}_Resume.pdf`;
+            link.target = '_blank';
+            
+            // Trigger download
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+        
+        // Fallback: set href for direct access
+        const isGitHubPages = window.location.hostname.includes('github.io');
+        const resumeUrl = isGitHubPages ? 
+            `https://brahimsaadii.github.io/${personal.resumeFile}` : 
+            personal.resumeFile;
+        resumeDownloadBtn.href = resumeUrl;
     }
     
     console.log('✅ Loaded contact section dynamically');
