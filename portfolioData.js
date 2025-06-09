@@ -5,7 +5,7 @@ const portfolioData = {    personal: {
         email: "brahim.saadi342@gmail.com",
         phone: "+33 (0) 745 439 657",
         location: "Paris, France",
-        linkedin: "https://www.linkedin.com/in/your-linkedin-username", // Add your LinkedIn URL here
+        linkedin: "https://www.linkedin.com/in/brahimsaadi-", // Add your LinkedIn URL here
         profileImage: "profile.jpg", // Large profile picture for hero section (recommended: 300x300px+)
         logoImage: "profile-logo.jpg", // Small optimized image for navigation (recommended: 100x100px)
         bio: "Passionate AI researcher and data scientist with expertise in machine learning, deep learning, NLP, and computer vision. Currently pursuing M2 MVA at ENS Paris-Saclay with hands-on experience in building AI pipelines and research projects.",
@@ -110,24 +110,7 @@ const portfolioData = {    personal: {
             liveUrl: "#",
             featured: true,
             icon: "fas fa-wifi"
-        },
-        {
-            title: "Personal Portfolio Website",
-            description: "Modern, responsive portfolio website with terminal functionality and interactive features.",
-            technologies: ["HTML", "CSS", "JavaScript"],
-            githubUrl: "https://github.com/brahimsaadii/test-project",
-            liveUrl: "https://github.com/brahimsaadii/test-project",
-            featured: false,
-            icon: "fas fa-code"
-        },
-        {
-            title: "Test Project",
-            description: "This is a test project to verify that adding new projects works correctly.",
-            technologies: ["JavaScript", "HTML", "CSS"],
-            githubUrl: "https://github.com/brahimsaadii/test-project",
-            liveUrl: "https://test-project-demo.com",
-            featured: false,
-            icon: "fas fa-cog"        }
+        }
     ],
     
     // Experience section (no icons needed - uses timeline format)
@@ -163,17 +146,7 @@ const portfolioData = {    personal: {
                 "Trained and evaluated machine learning models (Random Forest, SVM, KNN) to classify IoT devices"
             ],
             technologies: ["Python", "Wireshark", "Scikit-Learn", "Data Analysis", "Random Forest", "SVM", "KNN"]
-        },
-        {
-            title: "Test Intern - Machine Learning Research",
-            company: "Test AI Company",
-            period: "Jan 2025 - Present",
-            description: [
-                "This is a test experience entry to verify dynamic loading",
-                "Working on cutting-edge AI research projects",
-                "Implementing state-of-the-art machine learning algorithms"
-            ],
-            technologies: ["Python", "PyTorch", "Machine Learning", "Research"]        }
+        }
     ],
     
     // Education section
@@ -219,13 +192,6 @@ const portfolioData = {    personal: {
             period: "2019",
             description: "Mathematics and Electrical Engineering (17.68/20)",
             icon: "fas fa-award"
-        },
-        {
-            degree: "Test Certificate - Advanced AI Studies",
-            institution: "Test University | Online",
-            period: "2024",
-            description: "This is a test education entry to verify that adding new education works correctly in both terminal and webpage.",
-            icon: "fas fa-certificate"
         }
     ],
     
