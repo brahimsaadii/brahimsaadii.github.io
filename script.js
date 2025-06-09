@@ -31,6 +31,7 @@ function initializeTerminal() {
 }
 
 function setupTerminalEventListeners() {
+    function setupTerminalEventListeners() {
     // Enhanced event listeners
     terminalInput.addEventListener('keydown', function(e) {
         switch(e.key) {
@@ -124,10 +125,8 @@ function setupTerminalEventListeners() {
     });
 }
 
-// Terminal functionality
-let terminal = document.getElementById('terminal');
-let terminalOutput = document.getElementById('terminal-output');
-let terminalInput = document.getElementById('terminal-input');
+// Terminal functionality - Variables declared globally
+let terminal, terminalOutput, terminalInput;
 let isTerminalActive = false;
 let commandHistory = [];
 let historyIndex = -1;
@@ -1430,6 +1429,7 @@ const commandAliases = {
 
 // Enhanced execute command function with aliases
 function executeCommandWithAlias(input) {
+    function executeCommandWithAlias(input) {
     if (input.trim() === '') return;
     
     // Check for aliases
@@ -1847,6 +1847,7 @@ Press Ctrl + K to clear terminal
 
 // Terminal functions
 function toggleTerminal() {
+    function toggleTerminal() {
     isTerminalActive = !isTerminalActive;
     terminal.classList.toggle('active', isTerminalActive);
     
@@ -2016,11 +2017,8 @@ terminalInput.addEventListener('keydown', function(e) {
                 e.preventDefault();
                 addToTerminal(`^C`, 'command-error');
                 terminalInput.value = '';
-            }
-            break;
+            }            break;
     }
 });
 
-
-// Initial welcome message
-showWelcomeMessage();
+console.log('🚀 Terminal script loaded successfully!');
