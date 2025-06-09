@@ -252,14 +252,20 @@ function loadHeroSection() {
             ${personal.availability}
         `;
     }
-    
-    // Update profile avatar with image or fallback to icon
+      // Update profile avatar with image or fallback to icon
     const profileAvatar = document.querySelector('.profile-avatar');
     if (profileAvatar && personal.profileImage) {
         profileAvatar.innerHTML = `<img src="${personal.profileImage}" alt="${personal.name}" class="profile-img">`;
     } else if (profileAvatar) {
         // Fallback to icon if no image is provided
         profileAvatar.innerHTML = `<i class="fas fa-user"></i>`;
+    }
+    
+    // Update download resume button
+    const downloadBtn = document.querySelector('.download-resume-btn');
+    if (downloadBtn && personal.resumeFile) {
+        downloadBtn.href = personal.resumeFile;
+        downloadBtn.download = `${personal.name.replace(/\s+/g, '_')}_Resume.pdf`;
     }
     
     console.log('✅ Loaded hero section dynamically');
@@ -309,8 +315,7 @@ function loadContactSection() {
         return;
     }
     
-    const personal = portfolioData.personal;
-      // Update contact items
+    const personal = portfolioData.personal;    // Update contact items
     const contactItems = document.querySelectorAll('.contact-item');
     const contactMapping = [
         { key: 'email', icon: 'fas fa-envelope', label: 'Email' },
@@ -338,6 +343,13 @@ function loadContactSection() {
             `;
         }
     });
+    
+    // Update resume download button in contact section
+    const resumeDownloadBtn = document.querySelector('.download-resume-contact');
+    if (resumeDownloadBtn && personal.resumeFile) {
+        resumeDownloadBtn.href = personal.resumeFile;
+        resumeDownloadBtn.download = `${personal.name.replace(/\s+/g, '_')}_Resume.pdf`;
+    }
     
     console.log('✅ Loaded contact section dynamically');
 }
