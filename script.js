@@ -31,7 +31,6 @@ function initializeTerminal() {
 }
 
 function setupTerminalEventListeners() {
-    function setupTerminalEventListeners() {
     // Enhanced event listeners
     terminalInput.addEventListener('keydown', function(e) {
         switch(e.key) {
@@ -131,6 +130,31 @@ let isTerminalActive = false;
 let commandHistory = [];
 let historyIndex = -1;
 let currentDirectory = '/home/brahim/portfolio';
+
+// Global terminal toggle function - accessible from HTML onclick
+window.toggleTerminal = function() {
+    // Ensure terminal elements are available
+    if (!terminal) {
+        terminal = document.getElementById('terminal');
+        terminalOutput = document.getElementById('terminal-output');
+        terminalInput = document.getElementById('terminal-input');
+    }
+    
+    if (!terminal || !terminalOutput || !terminalInput) {
+        console.error('Terminal elements not found');
+        return;
+    }
+    
+    isTerminalActive = !isTerminalActive;
+    terminal.classList.toggle('active', isTerminalActive);
+    
+    if (isTerminalActive) {
+        terminalInput.focus();
+        if (terminalOutput.innerHTML === '') {
+            showWelcomeMessage();
+        }
+    }
+};
 
 // Terminal state
 const terminalState = {
@@ -1429,8 +1453,14 @@ const commandAliases = {
 
 // Enhanced execute command function with aliases
 function executeCommandWithAlias(input) {
-    function executeCommandWithAlias(input) {
     if (input.trim() === '') return;
+    
+    // Track command for statistics
+    if (input.trim() !== '') {
+        const command = input.trim().split(' ')[0].toLowerCase();
+        trackCommand(command);
+        saveCommandHistory();
+    }
     
     // Check for aliases
     const parts = input.trim().split(' ');
@@ -1790,19 +1820,6 @@ function initializeTerminalEnhancements() {
     loadCommandHistory();
     loadSavedTheme();
     
-    // Override the executeCommand function to include tracking
-    const originalExecuteCommand = window.executeCommand;
-    window.executeCommand = function(input) {
-        if (input.trim() !== '') {
-            const command = input.trim().split(' ')[0].toLowerCase();
-            trackCommand(command);
-            saveCommandHistory();
-        }
-        
-        // Use alias-aware execution
-        executeCommandWithAlias(input);
-    };
-    
     // Override auto-completion
     window.autoComplete = enhancedAutoComplete;
 }
@@ -1844,20 +1861,6 @@ Press Ctrl + \` to open terminal
 Press Ctrl + Shift + T as alternative
 Press Ctrl + K to clear terminal
 `);
-
-// Terminal functions
-function toggleTerminal() {
-    function toggleTerminal() {
-    isTerminalActive = !isTerminalActive;
-    terminal.classList.toggle('active', isTerminalActive);
-    
-    if (isTerminalActive) {
-        terminalInput.focus();
-        if (terminalOutput.innerHTML === '') {
-            showWelcomeMessage();
-        }
-    }
-}
 
 function showWelcomeMessage() {
     const welcomeText = `
@@ -1971,54 +1974,5 @@ function autoComplete() {
         addToTerminal('');
     }
 }
-
-// Handle input on Enter key
-// Enhanced event listeners
-terminalInput.addEventListener('keydown', function(e) {
-    switch(e.key) {        case 'Enter':
-            const input = terminalInput.value;
-            executeCommandWithAlias(input);
-            terminalInput.value = '';
-            break;
-            
-        case 'ArrowUp':
-            e.preventDefault();
-            if (historyIndex < commandHistory.length - 1) {
-                historyIndex++;
-                terminalInput.value = commandHistory[historyIndex] || '';
-            }
-            break;
-            
-        case 'ArrowDown':
-            e.preventDefault();
-            if (historyIndex > 0) {
-                historyIndex--;
-                terminalInput.value = commandHistory[historyIndex] || '';
-            } else if (historyIndex === 0) {
-                historyIndex = -1;
-                terminalInput.value = '';
-            }
-            break;
-            
-        case 'Tab':
-            e.preventDefault();
-            autoComplete();
-            break;
-            
-        case 'l':
-            if (e.ctrlKey) {
-                e.preventDefault();
-                commands.clear.execute();
-            }
-            break;
-            
-        case 'c':
-            if (e.ctrlKey) {
-                e.preventDefault();
-                addToTerminal(`^C`, 'command-error');
-                terminalInput.value = '';
-            }            break;
-    }
-});
 
 console.log('🚀 Terminal script loaded successfully!');
