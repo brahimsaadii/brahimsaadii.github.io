@@ -59,8 +59,8 @@ body {
 }
 
 .logo {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     background: var(--gradient-primary);
     border-radius: 50%;
     display: flex;
@@ -70,6 +70,13 @@ body {
     font-size: 18px;
     color: white;
     overflow: hidden;
+    border: 2px solid rgba(0, 212, 170, 0.3);
+    transition: var(--transition);
+}
+
+.logo:hover {
+    border-color: var(--primary-color);
+    transform: scale(1.05);
 }
 
 .nav-logo-img {
@@ -77,6 +84,14 @@ body {
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
+    image-rendering: auto;
+    image-rendering: -webkit-optimize-contrast;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .name {
@@ -259,8 +274,8 @@ body {
 }
 
 .profile-avatar {
-    width: 120px;
-    height: 120px;
+    width: 150px;
+    height: 150px;
     background: var(--gradient-secondary);
     border-radius: 50%;
     display: flex;
@@ -279,6 +294,12 @@ body {
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
+    image-rendering: auto;
+    image-rendering: -webkit-optimize-contrast;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
 }
 
 .profile-info h3 {

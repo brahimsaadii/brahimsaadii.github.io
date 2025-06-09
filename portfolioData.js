@@ -5,7 +5,8 @@ const portfolioData = {    personal: {
         email: "brahim.saadi342@gmail.com",
         phone: "+33 (0) 745 439 657",
         location: "Paris, France",
-        profileImage: "profile.jpg", // Add your profile picture filename here
+        profileImage: "profile.jpg", // Large profile picture for hero section (recommended: 300x300px+)
+        logoImage: "profile-logo.jpg", // Small optimized image for navigation (recommended: 100x100px)
         bio: "Passionate AI researcher and data scientist with expertise in machine learning, deep learning, NLP, and computer vision. Currently pursuing M2 MVA at ENS Paris-Saclay with hands-on experience in building AI pipelines and research projects.",
         aboutText: [
             "I'm a dedicated AI researcher and data scientist currently pursuing M2 MVA (Mathématique Vision Apprentissage) at ENS Paris-Saclay. My journey in AI spans machine learning, deep learning, computer vision, and natural language processing.",

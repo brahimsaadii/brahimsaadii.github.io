@@ -217,11 +217,10 @@ function loadHeroSection() {
       // Update nav brand
     const navName = document.querySelector('.nav-brand .name');
     if (navName) navName.textContent = personal.name;
-    
-    // Update logo with profile image or keep initials
+      // Update logo with dedicated logo image or keep initials
     const logo = document.querySelector('.nav-brand .logo');
-    if (logo && personal.profileImage) {
-        logo.innerHTML = `<img src="${personal.profileImage}" alt="${personal.name}" class="nav-logo-img">`;
+    if (logo && personal.logoImage) {
+        logo.innerHTML = `<img src="${personal.logoImage}" alt="${personal.name}" class="nav-logo-img">`;
     } else if (logo) {
         // Keep the initials as fallback
         const initials = personal.name.split(' ').map(n => n[0]).join('');
