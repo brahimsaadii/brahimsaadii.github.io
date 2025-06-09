@@ -15,10 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initializeTerminal() {
-    // Load saved preferences
-    loadCommandHistory();
-    loadSavedTheme();
-    
     // Set up event listeners
     setupTerminalEventListeners();
     
@@ -32,11 +28,10 @@ function initializeTerminal() {
 
 function setupTerminalEventListeners() {
     // Enhanced event listeners
-    terminalInput.addEventListener('keydown', function(e) {
-        switch(e.key) {
+    terminalInput.addEventListener('keydown', function(e) {        switch(e.key) {
             case 'Enter':
                 const input = terminalInput.value;
-                executeCommandWithAlias(input);
+                executeCommand(input);
                 terminalInput.value = '';
                 break;
                 
@@ -332,65 +327,43 @@ const portfolioData = {
 };
 
 // Terminal commands with enhanced functionality
-const commands = {    help: {
+const commands = {
+    help: {
         description: "Show available commands",
         execute: () => {
-            let output = `<span class="command-success">Available Commands:</span>\n\n`;
+            let output = `<span class="command-success">Portfolio Terminal - Available Commands</span>\n\n`;
             
-            // Portfolio Commands
-            output += `<span style="color: #7ce38b;">📋 Portfolio Commands:</span>\n`;
-            output += `  <span class="command-success">about</span>          - Show information about me\n`;
-            output += `  <span class="command-success">skills</span>         - List my technical skills\n`;
-            output += `  <span class="command-success">experience</span>     - Show my work experience\n`;
-            output += `  <span class="command-success">education</span>      - Show my educational background\n`;
-            output += `  <span class="command-success">projects</span>       - List my projects\n`;
-            output += `  <span class="command-success">certifications</span> - Show my certifications\n`;
-            output += `  <span class="command-success">publications</span>   - Show my publications\n`;
-            output += `  <span class="command-success">contact</span>        - Show contact information\n\n`;
+            // Core Portfolio Commands
+            output += `<span style="color: #7ce38b;">📋 Portfolio:</span>\n`;
+            output += `  <span class="command-success">about</span>          - About me and my background\n`;
+            output += `  <span class="command-success">skills</span>         - Technical skills and expertise\n`;
+            output += `  <span class="command-success">experience</span>     - Work experience and roles\n`;
+            output += `  <span class="command-success">education</span>      - Educational background\n`;
+            output += `  <span class="command-success">projects</span>       - Portfolio projects\n`;
+            output += `  <span class="command-success">certifications</span> - Professional certifications\n`;
+            output += `  <span class="command-success">publications</span>   - Research publications\n`;
+            output += `  <span class="command-success">contact</span>        - Contact information\n\n`;
             
-            // Interactive & Fun Commands
-            output += `<span style="color: #7ce38b;">🎮 Interactive & Fun:</span>\n`;
-            output += `  <span class="command-success">game</span>           - Play number guessing game\n`;
-            output += `  <span class="command-success">timer [min]</span>    - Start a countdown timer\n`;
-            output += `  <span class="command-success">calc [expr]</span>    - Calculator for quick math\n`;
-            output += `  <span class="command-success">weather [city]</span> - Show weather information\n`;
-            output += `  <span class="command-success">joke</span>           - Tell a programming joke\n`;
-            output += `  <span class="command-success">quote</span>          - Get an inspiring tech quote\n`;
-            output += `  <span class="command-success">fortune</span>        - Get a random fortune\n`;
-            output += `  <span class="command-success">ascii [art]</span>    - Display ASCII art\n`;
-            output += `  <span class="command-success">matrix</span>         - Enter the matrix\n\n`;
-            
-            // System & File Commands
-            output += `<span style="color: #7ce38b;">🗂️ System & Files:</span>\n`;
+            // Essential Terminal Commands
+            output += `<span style="color: #7ce38b;">🖥️ Terminal:</span>\n`;
             output += `  <span class="command-success">ls</span>             - List directory contents\n`;
             output += `  <span class="command-success">cat [file]</span>     - Display file contents\n`;
-            output += `  <span class="command-success">pwd</span>            - Show current directory\n`;
-            output += `  <span class="command-success">whoami</span>         - Show current user\n`;
-            output += `  <span class="command-success">date</span>           - Show current date and time\n`;
-            output += `  <span class="command-success">sysinfo</span>        - Show system information\n\n`;
+            output += `  <span class="command-success">clear</span>          - Clear terminal screen\n`;
+            output += `  <span class="command-success">whoami</span>         - Current user info\n`;
+            output += `  <span class="command-success">pwd</span>            - Current directory\n`;
+            output += `  <span class="command-success">date</span>           - Current date and time\n\n`;
             
-            // Customization & Tools
-            output += `<span style="color: #7ce38b;">🎨 Customization & Tools:</span>\n`;
-            output += `  <span class="command-success">theme [name]</span>   - Change terminal theme\n`;
-            output += `  <span class="command-success">stats</span>          - Show usage statistics\n`;
-            output += `  <span class="command-success">history [n]</span>    - Show command history\n`;
-            output += `  <span class="command-success">search [term]</span>  - Search through commands\n`;
-            output += `  <span class="command-success">random</span>         - Execute random command\n`;
-            output += `  <span class="command-success">clear</span>          - Clear the terminal\n`;
+            // Useful Features
+            output += `<span style="color: #7ce38b;">⚙️ Features:</span>\n`;
+            output += `  <span class="command-success">theme [color]</span>  - Change terminal theme\n`;
+            output += `  <span class="command-success">history</span>        - Show command history\n`;
             output += `  <span class="command-success">exit</span>           - Close terminal\n\n`;
-            
-            // Easter Eggs
-            output += `<span style="color: #7ce38b;">🎭 Easter Eggs:</span>\n`;
-            output += `  <span class="command-success">sudo [cmd]</span>     - Try to run as superuser\n`;
-            output += `  <span class="command-success">hack</span>           - Initiate hacking sequence\n\n`;
             
             // Tips
             output += `<span style="color: #8b949e;">💡 Tips:</span>\n`;
             output += `• Use <span style="color: #7ce38b;">↑ ↓</span> arrows for command history\n`;
             output += `• Press <span style="color: #7ce38b;">Tab</span> for auto-completion\n`;
-            output += `• Try aliases: h=help, c=clear, p=projects, s=skills\n`;
-            output += `• Type '<span class="command-success">theme matrix</span>' for a cool effect!\n`;
-            output += `• Try '<span class="command-success">random</span>' to discover new commands`;
+            output += `• Try: <span class="command-success">about</span> → <span class="command-success">skills</span> → <span class="command-success">projects</span> → <span class="command-success">contact</span>`;
             
             return output;
         }
@@ -609,27 +582,42 @@ drwxr-xr-x  contact.info
             return new Date().toString();
         }
     },
-    
-    theme: {
+      theme: {
         description: "Change terminal theme",
         execute: (args) => {
             const color = args[0];
             if (!color) {
-                return `<span class="command-error">Usage: theme [green|blue|red|purple]</span>`;
+                return `<span class="command-error">Usage: theme [green|blue|red|purple|orange]</span>`;
             }
             
             const colors = {
                 green: '#00d4aa',
                 blue: '#007acc',
                 red: '#ff6b6b',
-                purple: '#9c88ff'
+                purple: '#9c88ff',
+                orange: '#ff9500'
             };
             
             if (colors[color]) {
                 document.documentElement.style.setProperty('--primary-color', colors[color]);
                 return `<span class="command-success">Theme changed to ${color}</span>`;
             } else {
-                return `<span class="command-error">Unknown theme: ${color}</span>`;
+                return `<span class="command-error">Unknown theme: ${color}. Available: green, blue, red, purple, orange</span>`;
+            }
+        }
+    },
+    
+    history: {
+        description: "Show command history",
+        execute: () => {
+            if (typeof commandHistory !== 'undefined' && commandHistory.length > 0) {
+                let output = `<span class="command-success">Command History:</span>\n\n`;
+                commandHistory.slice(-10).forEach((cmd, index) => {
+                    output += `${commandHistory.length - 10 + index + 1}  ${cmd}\n`;
+                });
+                return output;
+            } else {
+                return `<span class="command-success">No command history available</span>`;
             }
         }
     },
@@ -640,1228 +628,61 @@ drwxr-xr-x  contact.info
             toggleTerminal();
             return '';
         }
-    },
-    
-    // File system commands
-    cd: {
-        description: "Change directory",
-        execute: (args) => {
-            if (!args[0]) {
-                terminalState.currentPath = '/home/brahim/portfolio';
-                return `<span class="command-success">Changed to home directory</span>`;
-            }
-            
-            const path = args[0];
-            const validPaths = {
-                '..': '/home/brahim',
-                '../': '/home/brahim',
-                '/': '/',
-                '~': '/home/brahim/portfolio',
-                'projects': '/home/brahim/portfolio/projects',
-                'documents': '/home/brahim/portfolio/documents',
-                'skills': '/home/brahim/portfolio/skills'
-            };
-            
-            if (validPaths[path]) {
-                terminalState.currentPath = validPaths[path];
-                return `<span class="command-success">Changed directory to ${terminalState.currentPath}</span>`;
-            } else {
-                return `<span class="command-error">bash: cd: ${path}: No such file or directory</span>`;
-            }
-        }
-    },
-    
-    tree: {
-        description: "Display directory tree structure",
-        execute: () => {
-            return `<span class="command-success">Portfolio Directory Structure:</span>
-
-📁 /home/brahim/portfolio/
-├── 📄 about.txt
-├── 📄 contact.info
-├── 📄 resume.pdf
-├── 📁 projects/
-│   ├── 📄 factcheck-bureau.md
-│   ├── 📄 5g-network-config.md
-│   ├── 📄 iot-classification.md
-│   └── 📄 portfolio-website.md
-├── 📁 skills/
-│   ├── 📄 programming.json
-│   ├── 📄 ai-ml.json
-│   ├── 📄 frameworks.json
-│   └── 📄 languages.json
-├── 📁 experience/
-│   ├── 📄 inria-factcheck.md
-│   ├── 📄 inria-5g.md
-│   └── 📄 ericsson.md
-├── 📁 education/
-│   ├── 📄 mva-ens.md
-│   ├── 📄 data-science.md
-│   └── 📄 preparatory.md
-└── 📁 documents/
-    ├── 📄 certifications.txt
-    ├── 📄 publications.md
-    └── 📄 achievements.log`;
-        }
-    },
-    
-    // System information commands
-    uname: {
-        description: "Show system information",
-        execute: (args) => {
-            const flag = args[0];
-            switch(flag) {
-                case '-a':
-                    return `Portfolio-Linux 5.15.0-portfolio #1 SMP x86_64 GNU/Linux`;
-                case '-r':
-                    return `5.15.0-portfolio`;
-                case '-m':
-                    return `x86_64`;
-                default:
-                    return `Portfolio-Linux`;
-            }
-        }
-    },
-    
-    ps: {
-        description: "Show running processes",
-        execute: () => {
-            return `<span class="command-success">PID  TTY      TIME     CMD</span>
-1001 pts/1    00:00:01 portfolio-server
-1002 pts/1    00:00:00 skill-monitor
-1003 pts/1    00:00:02 project-indexer
-1004 pts/1    00:00:00 terminal-shell
-1005 pts/1    00:00:01 contact-listener`;
-        }
-    },
-    
-    uptime: {
-        description: "Show system uptime",
-        execute: () => {
-            const now = new Date();
-            const uptime = `${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}`;
-            return `${uptime} up 42 days, 13:37, 1 user, load average: 0.42, 0.38, 0.41`;
-        }
-    },
-    
-    // Network tools
-    ping: {
-        description: "Send ICMP ping packets",
-        execute: (args) => {
-            const host = args[0] || 'github.com';
-            return `<span class="command-success">PING ${host} (140.82.121.4): 56 data bytes</span>
-64 bytes from ${host}: icmp_seq=0 ttl=64 time=12.4 ms
-64 bytes from ${host}: icmp_seq=1 ttl=64 time=11.8 ms
-64 bytes from ${host}: icmp_seq=2 ttl=64 time=13.2 ms
-
---- ${host} ping statistics ---
-3 packets transmitted, 3 packets received, 0.0% packet loss
-round-trip min/avg/max/stddev = 11.8/12.5/13.2/0.7 ms`;
-        }
-    },
-    
-    curl: {
-        description: "Transfer data from servers",
-        execute: (args) => {
-            const url = args[0];
-            if (!url) {
-                return `<span class="command-error">curl: try 'curl --help' for more information</span>`;
-            }
-            
-            if (url.includes('api') || url.includes('github')) {
-                return `<span class="command-success">HTTP/1.1 200 OK</span>
-Content-Type: application/json
-{
-  "message": "API endpoint simulated successfully",
-  "status": "active",
-  "developer": "${portfolioData.personal.name}"
-}`;
-            }
-            
-            return `<span class="command-success">Successfully connected to ${url}</span>
-<span class="command-success">Data transfer completed ✓</span>`;
-        }
-    },
-    
-    // Development tools
-    git: {
-        description: "Git version control",
-        execute: (args) => {
-            const subcommand = args[0];
-            
-            switch(subcommand) {
-                case 'status':
-                    return `<span class="command-success">On branch main</span>
-Your branch is up to date with 'origin/main'.
-
-Changes not staged for commit:
-  modified:   experience/new-role.md
-  modified:   skills/ai-ml.json
-
-Untracked files:
-  projects/new-project.md
-
-no changes added to commit (use "git add" to track)`;
-                    
-                case 'log':
-                    return `<span class="command-success">commit a1b2c3d4e5f6</span> (HEAD -> main, origin/main)
-Author: ${portfolioData.personal.name} <${portfolioData.personal.email}>
-Date:   ${new Date().toDateString()}
-
-    feat: Enhanced terminal with advanced features
-    
-<span class="command-success">commit 9f8e7d6c5b4a</span>
-Author: ${portfolioData.personal.name} <${portfolioData.personal.email}>
-Date:   ${new Date(Date.now() - 86400000).toDateString()}
-
-    docs: Updated portfolio with latest projects`;
-                    
-                case 'branch':
-                    return `* <span class="command-success">main</span>
-  feature/terminal-enhancements
-  feature/new-projects`;
-                    
-                default:
-                    return `<span class="command-success">git version 2.34.1</span>
-usage: git [--version] [--help] [-C <path>] [-c <name>=<value>]
-           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
-           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--bare]
-           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
-           <command> [<args>]
-
-Most commonly used git commands:
-   status    Show the working tree status
-   log       Show commit logs
-   branch    List, create, or delete branches`;
-            }
-        }
-    },
-    
-    npm: {
-        description: "Node package manager",
-        execute: (args) => {
-            const command = args[0];
-            
-            switch(command) {
-                case 'version':
-                case '-v':
-                    return `npm: 9.5.1
-node: v18.16.0
-portfolio-terminal: 1.0.0`;
-                    
-                case 'list':
-                case 'ls':
-                    return `portfolio-website@1.0.0 /home/brahim/portfolio
-├── animations@1.2.0
-├── responsive-design@2.1.0
-├── terminal-emulator@1.0.0
-└── modern-ui@3.0.1`;
-                    
-                default:
-                    return `<span class="command-success">npm <command></span>
-
-Usage:
-npm <command>
-
-where <command> is one of:
-    install, i, list, ls, version
-
-npm <command> -h  quick help on <command>`;
-            }
-        }
-    },
-    
-    // Fun commands and easter eggs
-    fortune: {
-        description: "Display a random fortune",
-        execute: () => {
-            const fortunes = [
-                "The best way to predict the future is to invent it. - Alan Kay",
-                "Code is like humor. When you have to explain it, it's bad. - Cory House",
-                "First, solve the problem. Then, write the code. - John Johnson",
-                "The only way to learn a new programming language is by writing programs in it. - Dennis Ritchie",
-                "Talk is cheap. Show me the code. - Linus Torvalds",
-                "Programs must be written for people to read, and only incidentally for machines to execute. - Harold Abelson",
-                "Any fool can write code that a computer can understand. Good programmers write code that humans can understand. - Martin Fowler",
-                "Debugging is twice as hard as writing the code in the first place. - Brian Kernighan"
-            ];
-            
-            const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
-            return `<span style="color: #7ce38b; font-style: italic;">💫 ${randomFortune}</span>`;
-        }
-    },
-    
-    cowsay: {
-        description: "Make a cow say something",
-        execute: (args) => {
-            const message = args.join(' ') || 'Hello from my portfolio!';
-            const messageLength = message.length;
-            const border = '-'.repeat(messageLength + 2);
-            
-            return `<pre style="color: #7ce38b;">
- ${border}
-< ${message} >
- ${border}
-        \\   ^__^
-         \\  (oo)\\_______
-            (__)\\       )\\/\\
-                ||----w |
-                ||     ||
-</pre>`;
-        }
-    },
-    
-    lolcat: {
-        description: "Make text rainbow colored",
-        execute: (args) => {
-            const text = args.join(' ') || 'Welcome to my colorful portfolio!';
-            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57', '#ff9ff3', '#54a0ff'];
-            
-            let coloredText = '';
-            for (let i = 0; i < text.length; i++) {
-                const color = colors[i % colors.length];
-                coloredText += `<span style="color: ${color};">${text[i]}</span>`;
-            }
-            
-            return coloredText;
-        }
-    },
-    
-    figlet: {
-        description: "Create ASCII art text",
-        execute: (args) => {
-            const text = args.join(' ') || 'BRAHIM';
-            
-            if (text.toUpperCase() === 'BRAHIM') {
-                return `<pre style="color: #00d4aa; font-weight: bold;">
-██████  ██████   █████  ██   ██ ██ ███    ███ 
-██   ██ ██   ██ ██   ██ ██   ██ ██ ████  ████ 
-██████  ██████  ███████ ███████ ██ ██ ████ ██ 
-██   ██ ██   ██ ██   ██ ██   ██ ██ ██  ██  ██ 
-██████  ██   ██ ██   ██ ██   ██ ██ ██      ██ 
-</pre>`;
-            }
-            
-            return `<pre style="color: #00d4aa;">
-ASCII Art for: ${text}
-(Simulated figlet output)
-</pre>`;
-        }
-    },
-    
-    // System monitoring
-    top: {
-        description: "Display running processes",
-        execute: () => {
-            return `<span class="command-success">top - ${new Date().toTimeString().split(' ')[0]} up 42 days, 13:37, 1 user, load average: 0.42, 0.38, 0.41</span>
-Tasks: 156 total, 1 running, 155 sleeping
-%Cpu(s): 2.3 us, 1.2 sy, 0.0 ni, 96.1 id, 0.4 wa
-
-  PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
- 1001 brahim    20   0  234156  45232  12456 S   5.3   2.1   0:32.12 portfolio
- 1002 brahim    20   0  123456  23456   8432 S   2.1   1.1   0:15.43 terminal
- 1003 brahim    20   0   98432  18234   6543 S   1.2   0.8   0:08.21 skills
- 1004 brahim    20   0   87654  16789   5432 S   0.8   0.7   0:05.67 projects`;
-        }
-    },
-    
-    df: {
-        description: "Display filesystem disk space usage",
-        execute: () => {
-            return `<span class="command-success">Filesystem     1K-blocks    Used Available Use% Mounted on</span>
-/dev/portfolio    976762020  234567  742194453  24% /
-/dev/skills        52428800  12345    52416455   1% /skills
-/dev/projects     104857600  45678   104811922  43% /projects
-/dev/experience    20971520   8901    20962619  42% /experience
-tmpfs               8388608      0     8388608   0% /tmp`;
-        }
-    },
-    
-    // Terminal customization
-    colors: {
-        description: "Test terminal colors",
-        execute: () => {
-            return `<span class="command-success">Terminal Color Test:</span>
-
-<span style="color: #ff6b6b;">🔴 Red</span>    <span style="color: #4ecdc4;">🟢 Green</span>  <span style="color: #45b7d1;">🔵 Blue</span>   <span style="color: #feca57;">🟡 Yellow</span>
-<span style="color: #ff9ff3;">🟣 Purple</span> <span style="color: #96ceb4;">🟢 Mint</span>   <span style="color: #f8b500;">🟠 Orange</span> <span style="color: #e056fd;">💜 Violet</span>
-
-<span style="background: #ff6b6b; color: white; padding: 2px 8px;">Background Colors</span> <span style="background: #4ecdc4; color: white; padding: 2px 8px;">Work</span> <span style="background: #45b7d1; color: white; padding: 2px 8px;">Too!</span>`;
-        }
-    },
-    
-    alias: {
-        description: "Create command aliases",
-        execute: (args) => {
-            if (args.length === 0) {
-                return `<span class="command-success">Current aliases:</span>
-ll='ls -la'
-la='ls -A'
-l='ls -CF'
-..='cd ..'
-...='cd ../..'
-grep='grep --color=auto'
-projects='cat projects.md'
-resume='cat about.txt && echo && cat experience.md'`;
-            }
-            
-            return `<span class="command-success">Alias created: ${args.join(' ')}</span>
-<span style="color: #8b949e;">Note: Aliases are simulated in this terminal demo</span>`;
-        }
-    },
-    
-    // Network and system
-    netstat: {
-        description: "Display network connections",
-        execute: () => {
-            return `<span class="command-success">Active Internet connections (servers and established)</span>
-Proto Recv-Q Send-Q Local Address           Foreign Address         State
-tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN
-tcp        0      0 0.0.0.0:443             0.0.0.0:*               LISTEN
-tcp        0      0 127.0.0.1:3000          0.0.0.0:*               LISTEN
-tcp        0      0 portfolio.dev:80        client.github.com:443   ESTABLISHED`;
-        }
-    },
-    
-    which: {
-        description: "Locate a command",
-        execute: (args) => {
-            const command = args[0];
-            if (!command) {
-                return `<span class="command-error">which: missing operand</span>`;
-            }
-            
-            if (commands[command]) {
-                return `/usr/local/bin/${command}`;
-            } else {
-                return `<span class="command-error">${command} not found</span>`;
-            }
-        }
-    },
-    
-    // Enhanced terminal commands with fun features
-    weather: {
-        description: "Show weather information",
-        execute: (args) => {
-            const city = args[0] || 'Paris';
-            // Simulated weather data
-            const weather = {
-                'paris': { temp: '22°C', condition: '☀️ Sunny', humidity: '65%' },
-                'london': { temp: '18°C', condition: '🌧️ Rainy', humidity: '80%' },
-                'new york': { temp: '25°C', condition: '⛅ Partly Cloudy', humidity: '70%' },
-                'tokyo': { temp: '28°C', condition: '🌤️ Partly Sunny', humidity: '75%' }
-            };
-            
-            const cityData = weather[city.toLowerCase()] || weather['paris'];
-            
-            return `<span class="command-success">Weather for ${city.charAt(0).toUpperCase() + city.slice(1)}</span>
-
-🌡️  Temperature: ${cityData.temp}
-☁️  Condition: ${cityData.condition}
-💧 Humidity: ${cityData.humidity}
-🕐 Updated: ${new Date().toLocaleTimeString()}
-
-<span style="color: #8b949e;">Note: This is simulated weather data for demo purposes</span>`;
-        }
-    },
-    
-    joke: {
-        description: "Tell a programming joke",
-        execute: () => {
-            const jokes = [
-                "Why do programmers prefer dark mode? Because light attracts bugs! 🐛",
-                "How many programmers does it take to change a light bulb? None, that's a hardware problem! 💡",
-                "Why do Python programmers prefer snake_case? Because they can't C the point of camelCase! 🐍",
-                "What's the object-oriented way to become wealthy? Inheritance! 💰",
-                "Why don't programmers like nature? It has too many bugs! 🌲🐞",
-                "How do you comfort a JavaScript bug? You console it! 😄",
-                "Why did the developer go broke? Because he used up all his cache! 💸",
-                "What do you call a programmer from Finland? Nerdic! 🇫🇮"
-            ];
-            
-            const randomJoke = jokes[Math.floor(Math.random() * jokes.length)];
-            return `<span class="command-success">Programming Joke</span>
-
-${randomJoke}
-
-<span style="color: #8b949e;">Type 'joke' again for another one! 😊</span>`;
-        }
-    },
-    
-    sysinfo: {
-        description: "Show system information",
-        execute: () => {
-            const userAgent = navigator.userAgent;
-            const platform = navigator.platform;
-            const language = navigator.language;
-            const cookieEnabled = navigator.cookieEnabled;
-            const onlineStatus = navigator.onLine ? 'Online' : 'Offline';
-            
-            return `<span class="command-success">System Information</span>
-
-🖥️  Platform: ${platform}
-🌐 Browser: ${userAgent.split(' ').pop()}
-🗣️  Language: ${language}
-🍪 Cookies: ${cookieEnabled ? 'Enabled' : 'Disabled'}
-📡 Status: ${onlineStatus}
-⏰ Timezone: ${Intl.DateTimeFormat().resolvedOptions().timeZone}
-📱 Screen: ${screen.width}x${screen.height}
-🎨 Color Depth: ${screen.colorDepth}-bit
-
-<span style="color: #8b949e;">Portfolio Terminal v2.1.0</span>`;
-        }
-    },
-    
-    ascii: {
-        description: "Display ASCII art",
-        execute: (args) => {
-            const art = args[0] || 'portfolio';
-            
-            const artCollection = {
-                portfolio: `
-<span style="color: #00d4aa;">
-    ██████╗  ██████╗ ██████╗ ████████╗███████╗ ██████╗ ██╗     ██╗ ██████╗ 
-    ██╔══██╗██╔═══██╗██╔══██╗╚══██╔══╝██╔════╝██╔═══██╗██║     ██║██╔═══██╗
-    ██████╔╝██║   ██║██████╔╝   ██║   █████╗  ██║   ██║██║     ██║██║   ██║
-    ██╔═══╝ ██║   ██║██╔══██╗   ██║   ██╔══╝  ██║   ██║██║     ██║██║   ██║
-    ██║     ╚██████╔╝██║  ██║   ██║   ██║     ╚██████╔╝███████╗██║╚██████╔╝
-    ╚═╝      ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝      ╚═════╝ ╚══════╝╚═╝ ╚═════╝ 
-</span>`,
-                computer: `
-<span style="color: #7ce38b;">
-    ┌─────────────────────────────────┐
-    │  ████████████████████████████   │
-    │  ██                        ██   │
-    │  ██  > Terminal Ready      ██   │
-    │  ██  > System Online       ██   │
-    │  ██  > Welcome Brahim!     ██   │
-    │  ██                        ██   │
-    │  ████████████████████████████   │
-    └─────────────────────────────────┘
-         ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
-</span>`,
-                rocket: `
-<span style="color: #ff6b6b;">
-           /\\
-          /  \\
-         |    |
-        /| ❤️ |\\
-       / |____| \\
-      /  ██████  \\
-     /   ██████   \\
-    /    ██████    \\
-   /     ██████     \\
-  /      ██████      \\
- /                    \\
-/_____________________\\
-     \\             /
-      \\___________/
-         🔥🔥🔥
-</span>`
-            };
-            
-            if (artCollection[art]) {
-                return artCollection[art];
-            } else {
-                return `<span class="command-error">ASCII art '${art}' not found</span>
-
-Available art: ${Object.keys(artCollection).join(', ')}`;
-            }
-        }
-    },
-    
-    matrix: {
-        description: "Enter the matrix",
-        execute: () => {
-            // Add matrix effect to terminal
-            setTimeout(() => {
-                const matrixChars = '01アイウエオカキクケコサシスセソタチツテト';
-                let matrixOutput = '';
-                
-                for (let i = 0; i < 10; i++) {
-                    let line = '';
-                    for (let j = 0; j < 50; j++) {
-                        line += matrixChars[Math.floor(Math.random() * matrixChars.length)];
-                    }
-                    matrixOutput += `<span style="color: #00ff00; font-family: monospace;">${line}</span>\n`;
-                }
-                
-                addToTerminal(matrixOutput);
-            }, 1000);
-            
-            return `<span style="color: #00ff00;">Wake up, ${portfolioData.personal.name}...</span>
-<span style="color: #00ff00;">The Matrix has you...</span>
-<span style="color: #00ff00;">Follow the white rabbit...</span>
-
-<span style="color: #ff0000;">💊 RED PILL</span> or <span style="color: #0000ff;">💊 BLUE PILL</span>?
-
-<span style="color: #8b949e;">Matrix code incoming...</span>`;
-        }
-    },
-    
-    game: {
-        description: "Play a guessing game",
-        execute: (args) => {
-            if (!window.currentGame) {
-                window.currentGame = {
-                    number: Math.floor(Math.random() * 100) + 1,
-                    attempts: 0,
-                    maxAttempts: 7
-                };
-                
-                return `<span class="command-success">🎮 Number Guessing Game Started!</span>
-
-I'm thinking of a number between 1 and 100.
-You have ${window.currentGame.maxAttempts} attempts to guess it!
-
-Usage: game [number] to make a guess
-Example: game 50
-
-Good luck! 🍀`;
-            }
-            
-            const guess = parseInt(args[0]);
-            if (isNaN(guess)) {
-                return `<span class="command-error">Please enter a valid number!</span>
-
-Usage: game [number]
-Example: game 50`;
-            }
-            
-            window.currentGame.attempts++;
-            const attemptsLeft = window.currentGame.maxAttempts - window.currentGame.attempts;
-            
-            if (guess === window.currentGame.number) {
-                const score = Math.max(0, 100 - (window.currentGame.attempts - 1) * 15);
-                const result = `<span class="command-success">🎉 CONGRATULATIONS!</span>
-
-You guessed it! The number was ${window.currentGame.number}
-Attempts: ${window.currentGame.attempts}/${window.currentGame.maxAttempts}
-Score: ${score}/100
-
-<span style="color: #7ce38b;">Excellent work! 🏆</span>
-
-Type 'game' to start a new game!`;
-                
-                delete window.currentGame;
-                return result;
-            }
-            
-            if (attemptsLeft === 0) {
-                const result = `<span class="command-error">💥 Game Over!</span>
-
-You ran out of attempts! The number was ${window.currentGame.number}
-
-Better luck next time! 🎯
-Type 'game' to start a new game!`;
-                
-                delete window.currentGame;
-                return result;
-            }
-            
-            const hint = guess < window.currentGame.number ? '📈 Too low!' : '📉 Too high!';
-            
-            return `${hint}
-
-Attempts left: ${attemptsLeft}
-Keep trying! You can do it! 💪`;
-        }
-    },
-    
-    fortune: {
-        description: "Get a random fortune/quote",
-        execute: () => {
-            const fortunes = [
-                "\"The best time to plant a tree was 20 years ago. The second best time is now.\" - Chinese Proverb 🌳",
-                "\"Your limitation—it's only your imagination.\" 💭",
-                "\"The future belongs to those who believe in the beauty of their dreams.\" - Eleanor Roosevelt ✨",
-                "\"It is during our darkest moments that we must focus to see the light.\" - Aristotle 🕯️",
-                "\"Success is not final, failure is not fatal: it is the courage to continue that counts.\" - Winston Churchill 💪",
-                "\"The only impossible journey is the one you never begin.\" - Tony Robbins 🚀",
-                "\"In the middle of difficulty lies opportunity.\" - Albert Einstein 🌟",
-                "\"Code is poetry written for machines to understand and humans to admire.\" 💻",
-                "\"The expert in anything was once a beginner.\" - Helen Hayes 🎯",
-                "\"Innovation distinguishes between a leader and a follower.\" - Steve Jobs 🍎"
-            ];
-            
-            const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
-            
-            return `<span class="command-success">🔮 Fortune Cookie</span>
-
-"${randomFortune.text}"
-
-<span style="color: #8b949e;">— ${randomFortune.author}</span>
-
-<span style="color: #7ce38b;">Keep coding! 🚀</span>`;
-        }
-    },
-    
-    timer: {
-        description: "Start a countdown timer",
-        execute: (args) => {
-            const minutes = parseInt(args[0]);
-            if (isNaN(minutes) || minutes <= 0) {
-                return `<span class="command-error">Usage: timer [minutes]</span>
-
-Example: timer 25 (for a 25-minute pomodoro session)`;
-            }
-            
-            const totalSeconds = minutes * 60;
-            let remainingSeconds = totalSeconds;
-            
-            const updateTimer = () => {
-                const mins = Math.floor(remainingSeconds / 60);
-                const secs = remainingSeconds % 60;
-                const timeStr = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-                
-                // Update the last timer display in terminal
-                const timerElements = document.querySelectorAll('.timer-display');
-                if (timerElements.length > 0) {
-                    const lastTimer = timerElements[timerElements.length - 1];
-                    if (remainingSeconds > 0) {
-                        lastTimer.innerHTML = `⏰ Timer: ${timeStr} remaining...`;
-                    } else {
-                        lastTimer.innerHTML = `<span style="color: #00d4aa;">🎉 Timer finished! Time for a break! 🎉</span>`;
-                        // Optional: Play a sound or show notification
-                        return;
-                    }
-                }
-                
-                remainingSeconds--;
-                if (remainingSeconds >= 0) {
-                    setTimeout(updateTimer, 1000);
-                }
-            };
-            
-            setTimeout(updateTimer, 1000);
-            
-            return `<span class="command-success">⏰ Timer Started!</span>
-
-<div class="timer-display">⏰ Timer: ${minutes}:00 remaining...</div>
-
-Focus time! 🎯 I'll let you know when time's up!
-
-<span style="color: #8b949e;">Tip: Try a 25-minute pomodoro session for maximum productivity!</span>`;
-        }
-    },
-    
-    calc: {
-        description: "Simple calculator",
-        execute: (args) => {
-            const expression = args.join(' ');
-            if (!expression) {
-                return `<span class="command-error">Usage: calc [expression]</span>
-
-Examples:
-  calc 2 + 2
-  calc 10 * 5
-  calc 100 / 4
-  calc 2 ** 8`;
-            }
-            
-            try {
-                // Simple safety check for basic math operations
-                const safeExpression = expression.replace(/[^0-9+\-*/.() ]/g, '');
-                if (safeExpression !== expression) {
-                    throw new Error('Invalid characters in expression');
-                }
-                
-                const result = eval(safeExpression);
-                
-                return `<span class="command-success">🧮 Calculator</span>
-
-${expression} = <span style="color: #00d4aa; font-size: 1.2em; font-weight: bold;">${result}</span>`;
-                
-            } catch (error) {
-                return `<span class="command-error">Invalid expression: ${expression}</span>
-
-Please use basic math operations: +, -, *, /, (), **`;
-            }
-        }
-    },
-    
-    quote: {
-        description: "Get an inspiring tech quote",
-        execute: () => {
-            const quotes = [
-                {
-                    text: "Talk is cheap. Show me the code.",
-                    author: "Linus Torvalds"
-                },
-                {
-                    text: "The best error message is the one that never shows up.",
-                    author: "Thomas Fuchs"
-                },
-                {
-                    text: "First, solve the problem. Then, write the code.",
-                    author: "John Johnson"
-                },
-                {
-                    text: "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.",
-                    author: "Martin Fowler"
-                },
-                {
-                    text: "Experience is the name everyone gives to their mistakes.",
-                    author: "Oscar Wilde"
-                },
-                {
-                    text: "The most important property of a program is whether it accomplishes the intention of its user.",
-                    author: "C.A.R. Hoare"
-                },
-                {
-                    text: "Simplicity is the ultimate sophistication.",
-                    author: "Leonardo da Vinci"
-                }
-            ];
-            
-            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-            
-            return `<span class="command-success">💡 Inspirational Quote</span>
-
-"${randomQuote.text}"
-
-<span style="color: #8b949e;">— ${randomQuote.author}</span>
-
-<span style="color: #7ce38b;">Keep coding! 🚀</span>`;
-        }
     }
 };
 
-// Command aliases for better user experience
+// Command aliases for convenience
 const commandAliases = {
     'h': 'help',
     'c': 'clear',
-    'cls': 'clear',
     'p': 'projects',
     's': 'skills',
     'e': 'experience',
-    'ed': 'education',
-    'w': 'whoami',
-    'info': 'about',
-    'resume': 'about',
-    'cv': 'about',
-    'contact-info': 'contact',
-    'certificates': 'certifications',
-    'pubs': 'publications',
-    'weather-paris': 'weather paris',
-    'sysinfo': 'sysinfo',
-    'system': 'sysinfo',
-    'tell-joke': 'joke',
-    'random-quote': 'quote',
-    'inspire': 'fortune'
+    'a': 'about',
+    'q': 'exit',
+    'll': 'ls'
 };
 
-// Enhanced execute command function with aliases
-function executeCommandWithAlias(input) {
+// Simple execute command function
+function executeCommand(input) {
     if (input.trim() === '') return;
     
-    // Track command for statistics
-    if (input.trim() !== '') {
-        const command = input.trim().split(' ')[0].toLowerCase();
-        trackCommand(command);
-        saveCommandHistory();
+    // Add to history
+    commandHistory.unshift(input);
+    if (commandHistory.length > 50) {
+        commandHistory.pop();
     }
+    historyIndex = -1;
     
-    // Check for aliases
     const parts = input.trim().split(' ');
     const command = parts[0].toLowerCase();
+    const args = parts.slice(1);
     
-    if (commandAliases[command]) {
-        const aliasedCommand = commandAliases[command];
-        const remainingArgs = parts.slice(1);
-        input = aliasedCommand + (remainingArgs.length > 0 ? ' ' + remainingArgs.join(' ') : '');
-    }
+    // Check for aliases first
+    const aliasedCommand = commandAliases[command];
+    const finalCommand = aliasedCommand || command;
     
-    executeCommand(input);
-}
-
-// Command similarity checking functions
-function findSimilarCommands(input) {
-    const commandNames = Object.keys(commands);
-    return commandNames.filter(cmd => {
-        return cmd.includes(input) || input.includes(cmd) || levenshteinDistance(cmd, input) <= 2;
-    }).slice(0, 3);
-}
-
-function levenshteinDistance(str1, str2) {
-    const matrix = [];
-    for (let i = 0; i <= str2.length; i++) {
-        matrix[i] = [i];
-    }
-    for (let j = 0; j <= str1.length; j++) {
-        matrix[0][j] = j;
-    }
-    for (let i = 1; i <= str2.length; i++) {
-        for (let j = 1; j <= str1.length; j++) {
-            if (str2.charAt(i - 1) === str1.charAt(j - 1)) {
-                matrix[i][j] = matrix[i - 1][j - 1];
-            } else {
-                matrix[i][j] = Math.min(
-                    matrix[i - 1][j - 1] + 1,
-                    matrix[i][j - 1] + 1,
-                    matrix[i - 1][j] + 1
-                );
-            }
+    // Add command to terminal
+    addToTerminal(`<span class="terminal-prompt">${terminalState.user}@${terminalState.hostname}:${terminalState.currentPath}$</span> <span style="color: #e6edf3;">${input}</span>`);
+    
+    if (commands[finalCommand]) {
+        const output = commands[finalCommand].execute(args);
+        if (output) {
+            addToTerminal(output, 'command-output');
         }
-    }
-    return matrix[str2.length][str1.length];
-}
-
-// Terminal statistics tracking
-let terminalStats = {
-    commandsExecuted: 0,
-    sessionStart: new Date(),
-    favoriteCommands: {},
-    lastCommand: null
-};
-
-// Enhanced command tracking
-function trackCommand(command) {
-    terminalStats.commandsExecuted++;
-    terminalStats.lastCommand = command;
-    
-    if (terminalStats.favoriteCommands[command]) {
-        terminalStats.favoriteCommands[command]++;
     } else {
-        terminalStats.favoriteCommands[command] = 1;
-    }
-}
-
-// Add stats command
-commands['stats'] = {
-    description: "Show terminal usage statistics",
-    execute: () => {
-        const sessionDuration = Math.floor((new Date() - terminalStats.sessionStart) / 1000);
-        const hours = Math.floor(sessionDuration / 3600);
-        const minutes = Math.floor((sessionDuration % 3600) / 60);
-        const seconds = sessionDuration % 60;
-        
-        const topCommands = Object.entries(terminalStats.favoriteCommands)
-            .sort(([,a], [,b]) => b - a)
-            .slice(0, 5);
-            
-        let output = `<span class="command-success">📊 Terminal Statistics</span>
-
-Session started: ${terminalStats.sessionStart.toLocaleString()}
-Duration: ${hours}h ${minutes}m ${seconds}s
-Commands executed: ${terminalStats.commandsExecuted}
-Last command: ${terminalStats.lastCommand || 'none'}
-
-<span class="command-success">Top Commands:</span>`;
-
-        topCommands.forEach(([cmd, count], index) => {
-            const bar = '█'.repeat(Math.min(count, 20));
-            output += `\n${index + 1}. ${cmd.padEnd(12)} ${bar} ${count}`;
-        });
-        
-        output += `\n\n<span style="color: #8b949e;">Keep exploring! Type 'help' to see all commands.</span>`;
-        
-        return output;
-    }
-};
-
-// Enhanced help command with search functionality
-commands['search'] = {
-    description: "Search through available commands",
-    execute: (args) => {
-        const searchTerm = args.join(' ').toLowerCase();
-        if (!searchTerm) {
-            return `<span class="command-error">Usage: search [term]</span>
-
-Example: search project
-Example: search skill`;
-        }
-        
-        const matchingCommands = Object.entries(commands)
-            .filter(([cmd, obj]) => 
-                cmd.includes(searchTerm) || 
-                obj.description.toLowerCase().includes(searchTerm)
-            );
-            
-        if (matchingCommands.length === 0) {
-            return `<span class="command-error">No commands found matching '${searchTerm}'</span>
-
-Try: search help, search info, search game`;
-        }
-        
-        let output = `<span class="command-success">🔍 Search Results for '${searchTerm}'</span>\n\n`;
-        
-        matchingCommands.forEach(([cmd, obj]) => {
-            output += `<span style="color: #7ce38b;">${cmd}</span> - ${obj.description}\n`;
-        });
-        
-        return output;
-    }
-};
-
-// Add random command
-commands['random'] = {
-    description: "Execute a random command",
-    execute: () => {
-        const availableCommands = Object.keys(commands).filter(cmd => 
-            !['random', 'clear', 'exit'].includes(cmd)
-        );
-        const randomCmd = availableCommands[Math.floor(Math.random() * availableCommands.length)];
-        
-        addToTerminal(`<span style="color: #8b949e;">🎲 Executing random command: <span class="command-success">${randomCmd}</span></span>`);
-        
-        setTimeout(() => {
-            executeCommand(randomCmd);
-        }, 500);
-        
-        return '';
-    }
-};
-
-// Easter egg commands for fun
-commands['sudo'] = {
-    description: "Execute commands as superuser",
-    execute: (args) => {
-        if (args.length === 0) {
-            return `<span class="command-error">sudo: a command is required</span>`;
-        }
-        
-        const command = args.join(' ');
-        
-        if (command === 'rm -rf /') {
-            return `<span class="command-error">[sudo] password for brahim: </span>
-<span class="command-error">sudo: rm: Permission denied</span>
-<span class="command-success">Nice try! But this portfolio is protected! 🛡️</span>
-
-<span style="color: #8b949e;">Fun fact: This command would delete everything on a Unix system!</span>`;
-        }
-        
-        return `<span class="command-error">[sudo] password for brahim: </span>
-<span class="command-error">Sorry, user brahim is not in the sudoers file. This incident will be reported.</span>
-<span class="command-success">Just kidding! You can't break my portfolio that easily 😄</span>
-
-<span style="color: #8b949e;">Try: sudo rm -rf / for a special message!</span>`;
-    }
-};
-
-commands['hack'] = {
-    description: "Initiate hacking sequence (just for fun)",
-    execute: () => {
-        const hackingSteps = [
-            "🔍 Scanning network for vulnerabilities...",
-            "🎯 Target acquired: portfolio.brahim.dev",
-            "🔓 Attempting to bypass firewall...",
-            "⚠️  FIREWALL DETECTED!",
-            "🛡️  Security protocols activated!",
-            "❌ ACCESS DENIED",
-            "😎 Nice try! This portfolio is hack-proof!"
-        ];
-        
-        let output = `<span style="color: #ff0000;">🚨 HACKING INITIATED 🚨</span>\n\n`;
-        
-        hackingSteps.forEach((step, index) => {
-            setTimeout(() => {
-                addToTerminal(`<span style="color: ${index < 6 ? '#00ff00' : '#ff6b6b'};">${step}</span>`);
-                if (index === hackingSteps.length - 1) {
-                    addToTerminal(`\n<span style="color: #8b949e;">Just kidding! This is a harmless easter egg 🥚</span>`);
-                }
-            }, index * 800);
-        });
-        
-        return output;
-    }
-};
-
-// Persistent command history using localStorage
-function saveCommandHistory() {
-    try {
-        localStorage.setItem('terminal_history', JSON.stringify(commandHistory));
-        localStorage.setItem('terminal_stats', JSON.stringify(terminalStats));
-    } catch (e) {
-        // Handle localStorage errors gracefully
-        console.log('Could not save terminal history');
-    }
-}
-
-function loadCommandHistory() {
-    try {
-        const savedHistory = localStorage.getItem('terminal_history');
-        const savedStats = localStorage.getItem('terminal_stats');
-        
-        if (savedHistory) {
-            commandHistory = JSON.parse(savedHistory);
-        }
-        
-        if (savedStats) {
-            terminalStats = { ...terminalStats, ...JSON.parse(savedStats) };
-            terminalStats.sessionStart = new Date(); // Reset session start
-        }
-    } catch (e) {
-        console.log('Could not load terminal history');
-    }
-}
-
-// Enhanced theme system
-const terminalThemes = {
-    default: {
-        primary: '#00d4aa',
-        background: 'rgba(13, 17, 23, 0.95)',
-        text: '#e6edf3',
-        success: '#00d4aa',
-        error: '#f85149',
-        warning: '#ffa500'
-    },
-    matrix: {
-        primary: '#00ff00',
-        background: 'rgba(0, 0, 0, 0.95)',
-        text: '#00ff00',
-        success: '#00ff00',
-        error: '#ff0000',
-        warning: '#ffff00'
-    },
-    cyberpunk: {
-        primary: '#ff0080',
-        background: 'rgba(16, 0, 32, 0.95)',
-        text: '#ff00ff',
-        success: '#00ffff',
-        error: '#ff0040',
-        warning: '#ffff00'
-    },
-    ocean: {
-        primary: '#00bfff',
-        background: 'rgba(0, 30, 60, 0.95)',
-        text: '#87ceeb',
-        success: '#00ffff',
-        error: '#ff6b6b',
-        warning: '#ffd700'
-    },
-    sunset: {
-        primary: '#ff6b35',
-        background: 'rgba(30, 15, 0, 0.95)',
-        text: '#ffd4a3',
-        success: '#ffab00',
-        error: '#ff3030',
-        warning: '#ffc107'
-    }
-};
-
-// Enhanced theme command
-commands['theme'] = {
-    description: "Change terminal theme [default|matrix|cyberpunk|ocean|sunset]",
-    execute: (args) => {
-        const themeName = args[0];
-        
-        if (!themeName) {
-            let output = `<span class="command-success">🎨 Available Themes:</span>\n\n`;
-            Object.keys(terminalThemes).forEach(theme => {
-                output += `<span style="color: ${terminalThemes[theme].primary};">● ${theme}</span> - ${theme.charAt(0).toUpperCase() + theme.slice(1)} theme\n`;
-            });
-            output += `\nUsage: theme [theme-name]`;
-            return output;
-        }
-        
-        if (terminalThemes[themeName]) {
-            applyTerminalTheme(themeName);
-            localStorage.setItem('terminal_theme', themeName);
-            return `<span class="command-success">🎨 Theme changed to '${themeName}'</span>
-
-Theme colors updated! ✨`;
-        } else {
-            return `<span class="command-error">Unknown theme: ${themeName}</span>
-
-Available themes: ${Object.keys(terminalThemes).join(', ')}`;
-        }
-    }
-};
-
-function applyTerminalTheme(themeName) {
-    const theme = terminalThemes[themeName];
-    const terminal = document.getElementById('terminal');
-    
-    // Apply theme colors
-    terminal.style.setProperty('--terminal-bg', theme.background);
-    terminal.style.setProperty('--terminal-text', theme.text);
-    terminal.style.setProperty('--terminal-primary', theme.primary);
-    terminal.style.setProperty('--terminal-success', theme.success);
-    terminal.style.setProperty('--terminal-error', theme.error);
-    terminal.style.setProperty('--terminal-warning', theme.warning);
-    
-    // Update CSS custom properties
-    document.documentElement.style.setProperty('--primary-color', theme.primary);
-}
-
-// Load saved theme on startup
-function loadSavedTheme() {
-    const savedTheme = localStorage.getItem('terminal_theme');
-    if (savedTheme && terminalThemes[savedTheme]) {
-        applyTerminalTheme(savedTheme);
-    }
-}
-
-// Enhanced history command
-commands['history'] = {
-    description: "Show command history",
-    execute: (args) => {
-        const limit = parseInt(args[0]) || 20;
-        const recentHistory = commandHistory.slice(0, limit);
-        
-        if (recentHistory.length === 0) {
-            return `<span style="color: #8b949e;">No command history available</span>`;
-        }
-        
-        let output = `<span class="command-success">📜 Command History (last ${recentHistory.length})</span>\n\n`;
-          recentHistory.reverse().forEach((cmd, index) => {
-            const lineNumber = (recentHistory.length - index).toString().padStart(3, ' ');
-            output += `<span style="color: #484f58;">${lineNumber}</span>  ${cmd}\n`;
-        });
-        
-        output += `\n<span style="color: #8b949e;">Tip: Use ↑↓ arrows to navigate history</span>`;
-        return output;
-    }
-};
-
-// Initialize terminal enhancements
-function initializeTerminalEnhancements() {
-    loadCommandHistory();
-    loadSavedTheme();
-    
-    // Override auto-completion
-    window.autoComplete = enhancedAutoComplete;
-}
-
-// Call initialization when script loads
-document.addEventListener('DOMContentLoaded', initializeTerminalEnhancements);
-
-// Add keyboard shortcut for quick access
-document.addEventListener('keydown', function(e) {
-    // Ctrl + Shift + T for terminal
-    if (e.ctrlKey && e.shiftKey && e.key === 'T') {
-        e.preventDefault();
-        if (!isTerminalActive) {
-            toggleTerminal();
-        }
+        addToTerminal(`<span style="color: #f85149;">bash: ${command}: command not found</span>\n\n<span style="color: #8b949e;">Type '<span class="command-success">help</span>' for available commands.</span>`, 'command-error');
     }
     
-    // Ctrl + K to clear terminal (like in VS Code)
-    if (e.ctrlKey && e.key === 'k' && isTerminalActive) {
-        e.preventDefault();
-        commands.clear.execute();
-    }
-});
+    // Keep input focused
+    setTimeout(() => {
+        if (isTerminalActive && terminalInput) {
+            terminalInput.focus();
+        }
+    }, 50);
+}
 
-// Enhanced terminal ready message
-console.log(`
-🚀 Enhanced Terminal System Loaded!
-
-New Features:
-• Command aliases (h = help, c = clear, etc.)
-• Persistent command history
-• Terminal themes (try 'theme matrix')
-• Usage statistics ('stats' command)
-• Interactive games and tools
-• Search functionality ('search [term]')
-• And much more!
-
-Press Ctrl + \` to open terminal
-Press Ctrl + Shift + T as alternative
-Press Ctrl + K to clear terminal
-`);
-
+// Simple terminal functions
 function showWelcomeMessage() {
     const welcomeText = `
 <span style="color: #00d4aa; font-weight: bold;">╔══════════════════════════════════════════════════════════════╗</span>
@@ -1879,113 +700,14 @@ function showWelcomeMessage() {
     addToTerminal(welcomeText, 'command-output');
 }
 
-function addToTerminal(content, className = '', typewriter = false) {
+function addToTerminal(content, className = '') {
     const div = document.createElement('div');
     div.className = className;
+    div.innerHTML = content;
+    terminalOutput.appendChild(div);
     
-    if (typewriter) {
-        terminalOutput.appendChild(div);
-        typeWriterEffect(div, content);
-    } else {
-        div.innerHTML = content;
-        terminalOutput.appendChild(div);
-    }
-    
-    // Enhanced scrolling with sticky input behavior
-    maintainStickyInput();
-}
-
-// Add this new function to maintain sticky input behavior
-function maintainStickyInput() {
-    // Ensure the output area scrolls while keeping input visible
+    // Scroll to bottom
     terminalOutput.scrollTop = terminalOutput.scrollHeight;
-    
-    // Keep input area pinned to bottom and always visible
-    const inputContainer = terminalInput.parentElement;
-    if (inputContainer) {
-        inputContainer.scrollIntoView({ behavior: 'instant', block: 'end' });
-    }
-    
-    // Alternative: Force input to stay in view with slight delay to ensure DOM updates
-    setTimeout(() => {
-        if (terminalInput) {
-            terminalInput.scrollIntoView({ behavior: 'instant', block: 'nearest' });
-            // Ensure input stays focused
-            if (isTerminalActive) {
-                terminalInput.focus();
-            }
-        }
-    }, 10);
-}
-
-function typeWriterEffect(element, text, speed = 30) {
-    let i = 0;
-    const timer = setInterval(() => {
-        element.innerHTML = text.slice(0, i + 1);
-        i++;
-        if (i >= text.length) {
-            clearInterval(timer);
-        }
-    }, speed);
-}
-
-function executeCommand(input) {
-    if (input.trim() === '') return;
-    
-    // Add to history
-    commandHistory.unshift(input);
-    if (commandHistory.length > 50) {
-        commandHistory.pop();
-    }
-    historyIndex = -1;
-    
-    const parts = input.trim().split(' ');
-    const command = parts[0].toLowerCase();
-    const args = parts.slice(1);
-    
-    // Add command to terminal with enhanced styling
-    const timestamp = new Date().toLocaleTimeString('en-US', { 
-        hour12: false, 
-        hour: '2-digit', 
-        minute: '2-digit', 
-        second: '2-digit' 
-    });
-    
-    addToTerminal(`
-        <div style="display: flex; align-items: center; margin: 8px 0;">
-            <span style="color: #484f58; font-size: 11px; margin-right: 12px;">[${timestamp}]</span>
-            <span class="terminal-prompt">${terminalState.user}@${terminalState.hostname}:${terminalState.currentPath}$</span>
-            <span style="margin-left: 8px; color: #e6edf3;">${input}</span>
-        </div>
-    `);
-    
-    if (commands[command]) {
-        const output = commands[command].execute(args);
-        if (output) {
-            addToTerminal(output, 'command-output');
-        }
-    } else {
-        // Check for similar commands
-        const similarCommands = findSimilarCommands(command);
-        let errorMsg = `<span style="color: #f85149;">bash: ${command}: command not found</span>`;
-        
-        if (similarCommands.length > 0) {
-            errorMsg += `\n\n<span style="color: #8b949e;">Did you mean:</span>`;
-            similarCommands.forEach(cmd => {
-                errorMsg += `\n  <span style="color: #7ce38b;">${cmd}</span>`;
-            });
-        }
-          errorMsg += `\n\n<span style="color: #8b949e;">Type '<span class="command-success">help</span>' for available commands.</span>`;
-        addToTerminal(errorMsg, 'command-error');
-    }
-    
-    // Ensure input stays visible after command execution
-    setTimeout(() => {
-        maintainStickyInput();
-        if (isTerminalActive && terminalInput) {
-            terminalInput.focus();
-        }
-    }, 50);
 }
 
 // Auto-completion function for terminal commands
@@ -1997,7 +719,7 @@ function autoComplete() {
     if (matches.length === 1) {
         terminalInput.value = matches[0];
     } else if (matches.length > 1) {
-        addToTerminal(`\n<span style="color: #8b949e;">Possible completions:</span>`);
+        addToTerminal(`<span style="color: #8b949e;">Possible completions:</span>`);
         matches.forEach(match => {
             const description = commands[match].description || '';
             addToTerminal(`  <span style="color: #7ce38b;">${match}</span> <span style="color: #484f58;">- ${description}</span>`);
@@ -2005,5 +727,3 @@ function autoComplete() {
         addToTerminal('');
     }
 }
-
-console.log('🚀 Terminal script loaded successfully!');
