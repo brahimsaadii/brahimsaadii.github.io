@@ -951,6 +951,8 @@ body {
     padding-bottom: 10px;
     position: relative;
     z-index: 1;
+    /* Enable smooth scrolling */
+    scroll-behavior: smooth;
 }
 
 #terminal-output::-webkit-scrollbar {
@@ -976,14 +978,18 @@ body {
     align-items: center;
     color: #e6edf3;
     font-size: 13px;
-    position: relative;
-    z-index: 1;
-    background: rgba(255, 255, 255, 0.02);
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+    background: rgba(13, 17, 23, 0.95);
     padding: 8px 12px;
     margin: 10px 20px 20px 20px;
     border-radius: 6px;
     border: 1px solid rgba(255, 255, 255, 0.05);
     flex-shrink: 0;
+    /* Enhanced sticky positioning */
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(0, 212, 170, 0.1);
 }
 
 .terminal-prompt {

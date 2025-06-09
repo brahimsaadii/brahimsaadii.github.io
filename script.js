@@ -1891,7 +1891,31 @@ function addToTerminal(content, className = '', typewriter = false) {
         terminalOutput.appendChild(div);
     }
     
+    // Enhanced scrolling with sticky input behavior
+    maintainStickyInput();
+}
+
+// Add this new function to maintain sticky input behavior
+function maintainStickyInput() {
+    // Ensure the output area scrolls while keeping input visible
     terminalOutput.scrollTop = terminalOutput.scrollHeight;
+    
+    // Keep input area pinned to bottom and always visible
+    const inputContainer = terminalInput.parentElement;
+    if (inputContainer) {
+        inputContainer.scrollIntoView({ behavior: 'instant', block: 'end' });
+    }
+    
+    // Alternative: Force input to stay in view with slight delay to ensure DOM updates
+    setTimeout(() => {
+        if (terminalInput) {
+            terminalInput.scrollIntoView({ behavior: 'instant', block: 'nearest' });
+            // Ensure input stays focused
+            if (isTerminalActive) {
+                terminalInput.focus();
+            }
+        }
+    }, 10);
 }
 
 function typeWriterEffect(element, text, speed = 30) {
@@ -1951,10 +1975,17 @@ function executeCommand(input) {
                 errorMsg += `\n  <span style="color: #7ce38b;">${cmd}</span>`;
             });
         }
-        
-        errorMsg += `\n\n<span style="color: #8b949e;">Type '<span class="command-success">help</span>' for available commands.</span>`;
+          errorMsg += `\n\n<span style="color: #8b949e;">Type '<span class="command-success">help</span>' for available commands.</span>`;
         addToTerminal(errorMsg, 'command-error');
     }
+    
+    // Ensure input stays visible after command execution
+    setTimeout(() => {
+        maintainStickyInput();
+        if (isTerminalActive && terminalInput) {
+            terminalInput.focus();
+        }
+    }, 50);
 }
 
 // Auto-completion function for terminal commands
