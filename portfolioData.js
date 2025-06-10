@@ -85,6 +85,33 @@ const portfolioData = {    personal: {
     // - "fas fa-microchip" (microchip - for hardware/embedded projects)
     projects: [
         {
+        title: "Composed Image Retrieval with Enhanced Embedding and Sampling",
+        description: "Explored advanced techniques in Composed Image Retrieval (COIR) by replicating CoVR-BLIP2 baselines and introducing improvements via multi-modal embedding weighting and dataloader sampling strategies.",
+        technologies: ["Python", "BLIP-2", "Deep Learning", "NLP", "Contrastive Learning", "COIR", "CIRR Dataset"],
+        githubUrl: "#",
+        liveUrl: "#",
+        featured: true,
+        icon: "fas fa-brain"
+        },
+        {
+        title: "Efficient Machine Translation with LLMs",
+        description: "Adapted large language models for machine translation in low-resource environments by fine-tuning on monolingual data and leveraging in-context learning. Using LoRA adapters and 4-bit quantization, we pushed the limits of models like LLaMA-8B and Gemma-3B on modest hardware—no parallel corpus required. Our findings highlight when few-shot prompting can outperform even monolingual fine-tuning.",
+        technologies: ["Python", "LoRA", "LLMs", "Machine Translation", "Quantization", "NLP", "In-Context Learning"],
+        githubUrl: "#",
+        liveUrl: "#",
+        featured: true,
+        icon: "fas fa-language"
+        },
+        {
+        title: "Robust Cancer Detection Across Medical Centers",
+        description: "Built a domain-adversarial deep learning model to detect tumors in histopathology images, even when the data comes from completely unseen hospitals. By fine-tuning a UNI backbone and using a Gradient Reversal Layer, we trained the model to ignore center-specific biases while staying focused on tumor patterns—achieving a top Kaggle score of 0.98211 in the MVA DLMI 2025 challenge.",
+        technologies: ["Python", "Deep Learning", "Domain Adaptation", "UNI Backbone", "GRL", "Histopathology", "OOD Robustness"],
+        githubUrl: "#",
+        liveUrl: "#",
+        featured: true,
+        icon: "fas fa-brain"
+        },
+        {
             title: "FactCheckBureau Platform",
             description: "Interactive platform for designing and evaluating fact-checking analysis pipelines using BM25 retrieval and SBERT re-ranking with LLM fine-tuning.",
             technologies: ["Python", "PyTorch", "SBERT", "BM25", "LLMs", "NLP"],
