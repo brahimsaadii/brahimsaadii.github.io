@@ -94,6 +94,15 @@ const portfolioData = {    personal: {
         icon: "fas fa-brain"
         },
         {
+        title: "Survival Prediction for Myeloid Leukemia using Multi-Modal Biomedical Data",
+        description: "Participated in the QRT Challenge in partnership with Institut Gustave Roussy, developing predictive models for overall survival in leukemia patients using real-world clinical and molecular data. Engineered features from genomics (e.g., gene mutations, chromosome abnormalities), embedded biomedical text with BioBERT, and optimized survival models (CoxNet, RSF, GBSA). Ranked 8th out of 33 teams on the final leaderboard with a C-index of 0.71.",
+        technologies: ["Python", "Survival Analysis", "Gradient Boosting", "BioBERT", "Pandas", "Scikit-learn", "Healthcare AI"],
+        githubUrl: "#",
+        liveUrl: "#",
+        featured: true,
+        icon: "fas fa-dna"
+        },
+        {
         title: "Efficient Machine Translation with LLMs",
         description: "Adapted large language models for machine translation in low-resource environments by fine-tuning on monolingual data and leveraging in-context learning. Using LoRA adapters and 4-bit quantization, we pushed the limits of models like LLaMA-8B and Gemma-3B on modest hardware—no parallel corpus required. Our findings highlight when few-shot prompting can outperform even monolingual fine-tuning.",
         technologies: ["Python", "LoRA", "LLMs", "Machine Translation", "Quantization", "NLP", "In-Context Learning"],
